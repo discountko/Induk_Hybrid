@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C308DFAB280CF31D0051162B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C308DFA8280CF31D0051162B /* LoginViewController.swift */; };
+		C308DFAC280CF31D0051162B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C308DFA9280CF31D0051162B /* LoginView.swift */; };
+		C308DFAD280CF31D0051162B /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C308DFAA280CF31D0051162B /* LoginViewModel.swift */; };
 		C331A44E2766DEF70058F7BB /* R.swift in Sources */ = {isa = PBXBuildFile; fileRef = C331A44D2766DEF70058F7BB /* R.swift */; };
 		C35C3615276B2D2200CDA30D /* TabPagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35C3614276B2D2200CDA30D /* TabPagerView.swift */; };
 		C35C3617276B2D2D00CDA30D /* TabPagerContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35C3616276B2D2D00CDA30D /* TabPagerContents.swift */; };
@@ -97,6 +100,9 @@
 /* Begin PBXFileReference section */
 		750EA7D41E069ED84248471B /* Pods_ExchangeRate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ExchangeRate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9BB063E6498ADE313E18D13 /* Pods-ExchangeRate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExchangeRate.debug.xcconfig"; path = "Target Support Files/Pods-ExchangeRate/Pods-ExchangeRate.debug.xcconfig"; sourceTree = "<group>"; };
+		C308DFA8280CF31D0051162B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		C308DFA9280CF31D0051162B /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		C308DFAA280CF31D0051162B /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		C331A44D2766DEF70058F7BB /* R.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.swift; sourceTree = "<group>"; };
 		C35C3614276B2D2200CDA30D /* TabPagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPagerView.swift; sourceTree = "<group>"; };
 		C35C3616276B2D2D00CDA30D /* TabPagerContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPagerContents.swift; sourceTree = "<group>"; };
@@ -205,6 +211,16 @@
 				750EA7D41E069ED84248471B /* Pods_ExchangeRate.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C308DFA7280CF2830051162B /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				C308DFA8280CF31D0051162B /* LoginViewController.swift */,
+				C308DFA9280CF31D0051162B /* LoginView.swift */,
+				C308DFAA280CF31D0051162B /* LoginViewModel.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		C331A44F2766E7A70058F7BB /* Component */ = {
@@ -416,6 +432,7 @@
 		C3B50DB72734B3AF00162B0B /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				C308DFA7280CF2830051162B /* Login */,
 				C3B50DB82734B3AF00162B0B /* Home */,
 				C3B50DBC2734B3AF00162B0B /* Search */,
 				C3B50DC02734B3AF00162B0B /* MoreSee */,
@@ -516,7 +533,6 @@
 				B9BB063E6498ADE313E18D13 /* Pods-ExchangeRate.debug.xcconfig */,
 				F8CA57AC7E6E00224F8CC80C /* Pods-ExchangeRate.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -683,6 +699,7 @@
 				C35C361D276B2D5C00CDA30D /* TabPagerHeaderView.swift in Sources */,
 				C3B50DE12734B3AF00162B0B /* TableView+.swift in Sources */,
 				C3B50DDB2734B3AF00162B0B /* NSString+.swift in Sources */,
+				C308DFAB280CF31D0051162B /* LoginViewController.swift in Sources */,
 				C3A90E6627391CDC00A70772 /* HomeDataSource.swift in Sources */,
 				C3B50E0E2734B3B000162B0B /* MainSteps.swift in Sources */,
 				C3B50E272734B3B000162B0B /* ServiceInfoManager.swift in Sources */,
@@ -700,8 +717,10 @@
 				C3B50E072734B3B000162B0B /* BaseView.swift in Sources */,
 				C3B50DE42734B3AF00162B0B /* String+.swift in Sources */,
 				C3B0C09128080C71002FBB60 /* MovieModel.swift in Sources */,
+				C308DFAD280CF31D0051162B /* LoginViewModel.swift in Sources */,
 				C3B50DE82734B3AF00162B0B /* UIImageView+.swift in Sources */,
 				C3B50DF82734B3AF00162B0B /* CollectionView+Rx.swift in Sources */,
+				C308DFAC280CF31D0051162B /* LoginView.swift in Sources */,
 				C3B50E102734B3B000162B0B /* HomeStepper.swift in Sources */,
 				C3B50E182734B3B000162B0B /* HomeViewModel.swift in Sources */,
 				C3B50E042734B3B000162B0B /* ViewBased.swift in Sources */,
