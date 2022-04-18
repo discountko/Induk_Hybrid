@@ -10,6 +10,9 @@ import RxFlow
 enum MainSteps: Step {
     // MARK: - App Active (Init Step)
     case initialization
+    case loginCheck
+    
+    
     case permissionCompleted
     
     /// App Inactive
@@ -35,4 +38,6 @@ enum MainSteps: Step {
     case home
     case board
     case news
+    
+    case login
 }

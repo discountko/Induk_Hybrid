@@ -20,7 +20,9 @@ class NewsFlow: BaseFlow {
         guard let step = step as? MainSteps else { return .none }
         switch step {
         case .news:
-            return navigateMoreScreen()
+            return navigateNewsScreen()
+        case .login:
+            return navigateLoginScreen()
         default:
             return .none
         }
@@ -28,9 +30,15 @@ class NewsFlow: BaseFlow {
 }
 
 extension NewsFlow {
-    func navigateMoreScreen() -> FlowContributors {
+    func navigateNewsScreen() -> FlowContributors {
         return FlowSugar(viewModel: NewsViewModel())
             .presentable(NewsViewController.self)
+            .oneStepPushBy(navigationController)
+    }
+    
+    private func navigateLoginScreen() -> FlowContributors {
+        return FlowSugar(viewModel: LoginViewModel())
+            .presentable(LoginViewController.self)
             .oneStepPushBy(navigationController)
     }
 }

@@ -42,8 +42,10 @@ class InitFlow: Flow {
         
         switch step {
         case .initialization:
-            return self.navigate(to: MainSteps.home)
-
+            return self.navigate(to: MainSteps.loginCheck)
+            
+        case .loginCheck:
+            return rootSetIntro()
         case .home:
             return moveToHome()
             
@@ -58,10 +60,22 @@ class InitFlow: Flow {
 }
 
 extension InitFlow {
+    private func checkLogin() -> FlowContributors {
+        let sugar = FlowSugar(viewModel: LoginViewModel())
+            .presentable(LoginViewController.self)
+        
+        if let vc = sugar.getViewController() {
+            rootViewController.tabBar.isHidden = true
+        }
+        
+        return .none
+            
+    }
+    
     
     private func rootSetIntro() -> FlowContributors {
-        let sugar = FlowSugar(viewModel: ExchangeViewModel())
-            .presentable(ExchangeViewController.self)
+        let sugar = FlowSugar(viewModel: LoginViewModel())
+            .presentable(LoginViewController.self)
 
         if let vc = sugar.getViewController() {
             rootViewController.tabBar.isHidden = true
@@ -76,7 +90,7 @@ extension InitFlow {
         // 탭바 초기 설정
         let flows: [Flow] = [homeFlow, boardFlow, newsFlow]
 
-        Flows.use(flows, when: .created) {[unowned self] (roots: [BaseNavigationController]) in
+        Flows.use(flows, when: .created) { [unowned self] (roots: [BaseNavigationController]) in
             for(index, root) in roots.enumerated() {
                 Log.d("index = \(index), root = \(root)")
                 root.tabBarItem = UITabBarItem(title: tabBarTitle[index],
@@ -88,26 +102,14 @@ extension InitFlow {
             
             UITabBarItem.setupBarItem()
             
+            self.rootViewController.tabBar.isHidden = false
             self.rootViewController.setViewControllers(roots, animated: true)
         }
-        
-        /// notificationFlow 가 준비 된 후에 딥링크 ㄱㄱ
-//        Flows.use(notificationFlow, when: .ready) { _ in
-//            AppDelegate.shared.readyNotificationFlow = true
-//            if let scheme = urlScheme {
-//                let nofiticationData = NotificationService.shared.parseLinkObject(directUrlScheme: scheme)
-//                NotificationService.shared.mapper(model: nofiticationData)
-//            } else if let deepLink = AppDelegate.shared.readyDeepLink {
-//                ARLinkService.shared.link(linkType: .deep, link: deepLink)
-//                AppDelegate.shared.readyDeepLink = nil
-//            }
-//        }
         
         return .multiple(flowContributors: [
             .contribute(withNextPresentable: homeFlow, withNextStepper: ExchangeStepper.shared),
             .contribute(withNextPresentable: boardFlow, withNextStepper: BoardStepper.shared),
             .contribute(withNextPresentable: newsFlow, withNextStepper: NewsStepper.shared)
-//            .contribute(withNextPresentable: notificationFlow, withNextStepper: NotificationStepper.shared)
         ])
     }
 }

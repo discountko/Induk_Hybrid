@@ -13,7 +13,7 @@ import RxFlow
 import Action
 
 enum LoginActionType {
-    
+    case goHome
 }
 
 class LoginViewModel: ViewModelType, Stepper {
@@ -44,6 +44,9 @@ class LoginViewModel: ViewModelType, Stepper {
     lazy var actionForButton = Action<LoginActionType, Void> { [weak self] in
         guard let `self` = self else { return .empty() }
         switch $0 {
+        case .goHome:
+            self.steps.accept(MainSteps.home)
+            //break;
         default: break
         }
         return .empty()
@@ -59,6 +62,8 @@ class LoginViewModel: ViewModelType, Stepper {
     
     func transform(req: ViewModel.Input) -> ViewModel.Output {
         req.naviBarTrigger.bind(to: actionForNaviBar.inputs).disposed(by: disposeBag)
+        req.actionTrigger.bind(to: actionForButton.inputs).disposed(by: disposeBag)
+        
         return Output()
     }
     

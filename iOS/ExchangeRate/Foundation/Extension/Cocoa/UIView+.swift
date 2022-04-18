@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxCocoa
 
 extension UIView {
     var parentViewController: UIViewController? {
@@ -140,6 +141,13 @@ extension UIView {
     open func addSubview(_ view: UIView, with block: @escaping () -> Void) {
         self.addSubview(view)
         block()
+    }
+    
+    public func tapGesture() -> ControlEvent<UITapGestureRecognizer> {
+        let tapGesture = UITapGestureRecognizer()
+        addGestureRecognizer(tapGesture)
+        self.isUserInteractionEnabled = true
+        return tapGesture.rx.event
     }
 }
 

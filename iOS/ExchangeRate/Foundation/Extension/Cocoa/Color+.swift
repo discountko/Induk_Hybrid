@@ -10,6 +10,14 @@ import UIKit
 public typealias Color = UIColor
 
 extension UIColor {
+    convenience init(_ red: Int, _ green: Int, _ blue: Int, _ alpha: CGFloat = 1.0) {
+        let newRed = CGFloat(red)/255
+        let newGreen = CGFloat(green)/255
+        let newBlue = CGFloat(blue)/255
+        
+        self.init(red: newRed, green: newGreen, blue: newBlue, alpha: alpha)
+    }
+    
     convenience init(_ red: Int, _ green: Int, _ blue: Int) {
         let newRed = CGFloat(red)/255
         let newGreen = CGFloat(green)/255
