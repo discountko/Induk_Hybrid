@@ -1,5 +1,5 @@
 //
-//  HomeView.swift
+//  NewsView.swift
 //  Basic
 //
 //  Created by pineone on 2021/09/16.
@@ -11,19 +11,15 @@ import SnapKit
 import Then
 import RxSwift
 import RxCocoa
-import RxDataSources
 
-class HomeView: UIBasePreviewType {
+class NewsView: UIBasePreviewType {
     
     // MARK: - Model type implemente
     typealias Model = Void
     
-    let actionRelay = PublishRelay<HomeActionType>()
-    
     // MARK: - init
-    override init(naviType: BaseNavigationShowType = .centerTitle) {
+    override init(naviType: BaseNavigationShowType = .none) {
         super.init(naviType: naviType)
-        naviBar.title = "테스트"
         setupLayout()
     }
     
@@ -32,16 +28,10 @@ class HomeView: UIBasePreviewType {
     }
     
     // MARK: - View
-    lazy var testButton = UIButton().then {
-        $0.backgroundColor = .systemBlue ~ 50%
-        $0.setTitle("로드", for: .normal)
-        $0.rx.tap
-            .map { .test }
-            .bind(to: actionRelay)
-            .disposed(by: rx.disposeBag)
-            
+    lazy var label = UILabel().then {
+        $0.text = "MoreSee View"
+        $0.textColor = .red
     }
-    
     
     // MARK: - Outlets
     
@@ -49,35 +39,29 @@ class HomeView: UIBasePreviewType {
     func setupLayout() {
         backgroundColor = .white
         
-        addSubviews([testButton])
-        
-        testButton.snp.makeConstraints {
-            $0.center.equalToSuperview()
-            $0.width.equalTo(180)
-            $0.height.equalTo(65)
+        self.addSubview(label)
+        label.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
         }
-        
     }
     
-    /// User Input
-    @discardableResult
-    func setupDI(relay: PublishRelay<HomeActionType>) -> Self {
-        actionRelay.bind(to: relay).disposed(by: rx.disposeBag)
-        return self
+    func setupDI(observable: Observable<[Model]>) {
+        // model Dependency Injection
     }
 }
+
 
 // MARK: - PreView
 #if canImport(SwiftUI) && DEBUG
 import SwiftUI
 
 @available(iOS 13.0, *)
-struct Home_Previews: PreviewProvider {
+struct MoreSee_Previews: PreviewProvider {
     static var previews: some View {
         //        Group {
         //            ForEach(UIView.previceSupportDevices, id: \.self) { deviceName in
         //                DebugPreviewView {
-        //                    return HomeView()
+        //                    return NewsView()
         //                }.previewDevice(PreviewDevice(rawValue: deviceName))
         //                    .previewDisplayName(deviceName)
         //                    .previewLayout(.sizeThatFits)
@@ -85,7 +69,7 @@ struct Home_Previews: PreviewProvider {
         //        }        
         Group {
             DebugPreviewView {
-                let view = HomeView()
+                let view = NewsView()
                 //                .then {
                 //                    $0.setupDI(observable: Observable.just([]))
                 //                }

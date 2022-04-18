@@ -1,5 +1,5 @@
 //
-//  HomeViewModel.swift
+//  ExchangeViewModel.swift
 //  Basic
 //
 //  Created by pineone on 2021/09/16.
@@ -11,21 +11,21 @@ import RxCocoa
 import RxSwift
 import RxFlow
 
-enum HomeActionType {
+enum ExchangeActionType {
     case test
 }
 
-class HomeViewModel: ViewModelType, Stepper {
+class ExchangeViewModel: ViewModelType, Stepper {
     // MARK: - Stepper
     var steps = PublishRelay<Step>()
     
     let disposeBag = DisposeBag()
     
     // MARK: - ViewModelType Protocol
-    typealias ViewModel = HomeViewModel
+    typealias ViewModel = ExchangeViewModel
     
     struct Input {
-        let actionTrigger: PublishRelay<HomeActionType>
+        let actionTrigger: PublishRelay<ExchangeActionType>
     }
     
     struct Output {
@@ -37,7 +37,7 @@ class HomeViewModel: ViewModelType, Stepper {
         return Output()
     }
     
-    func actionForButton(_ type: HomeActionType) {
+    func actionForButton(_ type: ExchangeActionType) {
         switch type {
         case .test:
             movieListLoad(limit: 10, 1, 5)

@@ -1,5 +1,5 @@
 //
-//  SearchFlow.swift
+//  BoardFlow.swift
 //  Base
 //
 //  Created by pineone on 2021/09/23.
@@ -10,7 +10,7 @@ import RxFlow
 import RxSwift
 import UIKit
 
-class SearchFlow: BaseFlow {
+class BoardFlow: BaseFlow {
     override func navigate(to step: Step) -> FlowContributors {
         let superContributors = super.navigate(to: step)
         if !superContributors.isNone {
@@ -19,8 +19,8 @@ class SearchFlow: BaseFlow {
         
         guard let step = step as? MainSteps else { return .none }
         switch step {
-        case .moreSee:
-            return navigateSearchScreen()
+        case .board:
+            return navigateBoardScreen()
         case .popModal:
             self.navigationController.dismiss(animated: true, completion: nil)
             return .none
@@ -30,10 +30,10 @@ class SearchFlow: BaseFlow {
     }
 }
 
-extension SearchFlow {
-    func navigateSearchScreen() -> FlowContributors {
-        return FlowSugar(viewModel: SearchViewModel())
-            .presentable(SearchViewController.self)
+extension BoardFlow {
+    func navigateBoardScreen() -> FlowContributors {
+        return FlowSugar(viewModel: BoardViewModel())
+            .presentable(BoardViewController.self)
             .oneStepPushBy(navigationController)
     }
 }

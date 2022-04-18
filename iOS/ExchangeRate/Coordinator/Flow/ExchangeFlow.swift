@@ -1,5 +1,5 @@
 //
-//  HomeFlow.swift
+//  ExchangeFlow.swift
 //  Base
 //
 //  Created by pineone on 2021/09/14.
@@ -8,7 +8,7 @@
 import RxFlow
 import UIKit
 
-class HomeFlow: BaseFlow {
+class ExchangeFlow: BaseFlow {
     
     override func navigate(to step: Step) -> FlowContributors {
         let superContributors = super.navigate(to: step)
@@ -19,7 +19,7 @@ class HomeFlow: BaseFlow {
         guard let step = step as? MainSteps else { return .none }
         switch step {
         case .home:
-            return self.navigateToHomeScreen()
+            return self.navigateToExcahngeScreen()
 
         case .popViewController:
             _ = self.navigationController.popViewController(animated: true)
@@ -43,16 +43,16 @@ class HomeFlow: BaseFlow {
     }
 }
 
-extension HomeFlow {
-    private func navigateToHomeScreen() -> FlowContributors {
-        return FlowSugar(viewModel: HomeViewModel())
-            .presentable(HomeViewController.self)
+extension ExchangeFlow {
+    private func navigateToExcahngeScreen() -> FlowContributors {
+        return FlowSugar(viewModel: ExchangeViewModel())
+            .presentable(ExchangeViewController.self)
             .oneStepPushBy(navigationController)
     }
 
 }
 
-extension HomeFlow {
+extension ExchangeFlow {
 //    private func navigateToRequest(type: HomePushRequsetType) -> FlowContributors {
 //        if let home = navigationController.children.first as? homeViewController {
 //            home.flowRequest(type)

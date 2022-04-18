@@ -65,6 +65,7 @@ class BaseTabBarController: UITabBarController, UITabBarControllerDelegate {
         _tabBarHeight = height
         tabBar.frame.size.height = height
         tabBar.frame.origin.y = view.frame.height - height
+        selectedIndex = TabPage.two.rawValue
     }
     
     
@@ -72,7 +73,6 @@ class BaseTabBarController: UITabBarController, UITabBarControllerDelegate {
     @discardableResult
     func selectTabBarWith(index: TabPage) -> FlowContributors {
         switchToTabBar(page: index)
-        
         return .none
     }
     

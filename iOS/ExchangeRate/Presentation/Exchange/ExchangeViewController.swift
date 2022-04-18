@@ -1,8 +1,8 @@
 //
-//  SearchViewController.swift
+//  ExchangeViewController.swift
 //  Basic
 //
-//  Created by pineone on 2021/09/23.
+//  Created by pineone on 2021/09/16.
 //  Copyright (c) 2021 ___ORGANIZATIONNAME___. All rights reserved.
 //
 
@@ -13,15 +13,14 @@ import Reusable
 import SnapKit
 import Then
 
-class SearchViewController: UIBaseViewController, ViewModelProtocol {
-    typealias ViewModel = SearchViewModel
+class ExchangeViewController: UIBaseViewController, ViewModelProtocol {
+    typealias ViewModel = ExchangeViewModel
     
     // MARK: - ViewModelProtocol
     var viewModel: ViewModel!
     
     // MARK: - Properties
-    private let actionRelay = PublishRelay<SearchActionType>()
-    
+    private let actionRelay = PublishRelay<ExchangeActionType>()
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,20 +32,20 @@ class SearchViewController: UIBaseViewController, ViewModelProtocol {
     
     // MARK: - Binding
     func bindingViewModel() {
-        _ = viewModel.transform(req: ViewModel.Input(naviBarTrigger: subView.naviBar.navigationAction,
-                                                     actionTrigger: actionRelay))
+        _ = viewModel.transform(req: ViewModel.Input(actionTrigger: actionRelay))
         
-        subView
-            .setupDI(relay: actionRelay)
+        subView.setupDI(relay: actionRelay)
     }
     
     // MARK: - View
-    let subView = SearchView()
+    let subView = ExchangeView()
     
     func setupLayout() {
         view.addSubview(subView)
+        
         subView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(-BaseTabBarController.shared.tabBarHeight)
         }
     }
     

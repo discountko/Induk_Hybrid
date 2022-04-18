@@ -19,15 +19,15 @@ class InitFlow: Flow {
     
     let disposeBag = DisposeBag()
     
-    let homeFlow = HomeFlow()
-    let searchFlow = SearchFlow()
-    let moreSeeFlow = MoreSeeFlow()
+    let homeFlow = ExchangeFlow()
+    let boardFlow = BoardFlow()
+    let newsFlow = NewsFlow()
     
     var tabBarTitle: [String] {
-        return ["홈", "검색", "더보기"]
+        return ["환율전환", "게시판", "뉴스"]
     }
     
-    var sfSymbols = ["magnifyingglass.circle", "magnifyingglass.circle.fill", "person.crop.circle", "person.crop.circle.fill", "ellipsis.circle", "ellipsis.circle.fill"]
+    var sfSymbols = ["person.crop.circle", "person.crop.circle.fill", "house.circle", "house.circle.fill", "newspaper.circle", "newspaper.circle.fill"]
     
     var tabBarImage: [UIImage] {
         return [UIImage(systemName: sfSymbols[0])!, UIImage(systemName: sfSymbols[2])!, UIImage(systemName: sfSymbols[4])!]
@@ -60,8 +60,8 @@ class InitFlow: Flow {
 extension InitFlow {
     
     private func rootSetIntro() -> FlowContributors {
-        let sugar = FlowSugar(viewModel: HomeViewModel())
-            .presentable(HomeViewController.self)
+        let sugar = FlowSugar(viewModel: ExchangeViewModel())
+            .presentable(ExchangeViewController.self)
 
         if let vc = sugar.getViewController() {
             rootViewController.tabBar.isHidden = true
@@ -74,7 +74,7 @@ extension InitFlow {
     
     private func moveToHome() -> FlowContributors {
         // 탭바 초기 설정
-        let flows: [Flow] = [homeFlow, searchFlow, moreSeeFlow]
+        let flows: [Flow] = [homeFlow, boardFlow, newsFlow]
 
         Flows.use(flows, when: .created) {[unowned self] (roots: [BaseNavigationController]) in
             for(index, root) in roots.enumerated() {
@@ -104,9 +104,9 @@ extension InitFlow {
 //        }
         
         return .multiple(flowContributors: [
-            .contribute(withNextPresentable: homeFlow, withNextStepper: HomeStepper.shared),
-            .contribute(withNextPresentable: searchFlow, withNextStepper: MoreSeeStepper.shared),
-            .contribute(withNextPresentable: moreSeeFlow, withNextStepper: MoreSeeStepper.shared)
+            .contribute(withNextPresentable: homeFlow, withNextStepper: ExchangeStepper.shared),
+            .contribute(withNextPresentable: boardFlow, withNextStepper: BoardStepper.shared),
+            .contribute(withNextPresentable: newsFlow, withNextStepper: NewsStepper.shared)
 //            .contribute(withNextPresentable: notificationFlow, withNextStepper: NotificationStepper.shared)
         ])
     }

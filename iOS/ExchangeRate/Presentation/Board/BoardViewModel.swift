@@ -1,5 +1,5 @@
 //
-//  SearchViewModel.swift
+//  BoardViewModel.swift
 //  Basic
 //
 //  Created by pineone on 2021/09/23.
@@ -12,16 +12,16 @@ import RxSwift
 import RxFlow
 import Action
 
-enum SearchActionType {
+enum BoardActionType {
     
 }
 
-class SearchViewModel: ViewModelType, Stepper {
+class BoardViewModel: ViewModelType, Stepper {
     // MARK: - Stepper
     var steps = PublishRelay<Step>()
     
     // MARK: - ViewModelType Protocol
-    typealias ViewModel = SearchViewModel
+    typealias ViewModel = BoardViewModel
     
     var disposeBag = DisposeBag()
     
@@ -36,7 +36,7 @@ class SearchViewModel: ViewModelType, Stepper {
     
     struct Input {
         let naviBarTrigger: PublishRelay<BaseNavigationActionType>
-        let actionTrigger: PublishRelay<SearchActionType>
+        let actionTrigger: PublishRelay<BoardActionType>
     }
     
     struct Output {

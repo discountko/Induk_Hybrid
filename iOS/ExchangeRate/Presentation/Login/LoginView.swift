@@ -36,17 +36,17 @@ class LoginView: UIBasePreviewType {
     }
     
     // MARK: - View
-    lazy var label = UILabel().then {
-        $0.text = "Login View"
-        $0.textColor = .red
+    lazy var loginLabel = UILabel().then {
+        $0.text = "로그인"
+        $0.font = .notoSans(size: 16, weight: .bold)
     }
     
     // MARK: - Outlets
     
     // MARK: - Methods
     func setupLayout() {
-        addSubview(label)
-        label.snp.makeConstraints {
+        addSubviews([loginLabel])
+        loginLabel.snp.makeConstraints {
             $0.center.equalToSuperview()
         }
     }

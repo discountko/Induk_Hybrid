@@ -1,5 +1,5 @@
 //
-//  MoreSeeViewModel.swift
+//  NewsViewModel.swift
 //  Basic
 //
 //  Created by pineone on 2021/09/16.
@@ -11,12 +11,12 @@ import RxCocoa
 import RxSwift
 import RxFlow
 
-class MoreSeeViewModel: ViewModelType, Stepper {
+class NewsViewModel: ViewModelType, Stepper {
     // MARK: - Stepper
     var steps = PublishRelay<Step>()
     
     // MARK: - ViewModelType Protocol
-    typealias ViewModel = MoreSeeViewModel
+    typealias ViewModel = NewsViewModel
     
     struct Input {
     }

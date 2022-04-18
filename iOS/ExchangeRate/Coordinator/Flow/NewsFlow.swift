@@ -1,5 +1,5 @@
 //
-//  MoreSeeFlow.swift
+//  NewsFlow.swift
 //  Base
 //
 //  Created by pineone on 2021/09/16.
@@ -10,7 +10,7 @@ import RxFlow
 import RxSwift
 import UIKit
 
-class MoreSeeFlow: BaseFlow {
+class NewsFlow: BaseFlow {
     override func navigate(to step: Step) -> FlowContributors {
         let superContributors = super.navigate(to: step)
         if !superContributors.isNone {
@@ -19,7 +19,7 @@ class MoreSeeFlow: BaseFlow {
         
         guard let step = step as? MainSteps else { return .none }
         switch step {
-        case .moreSee:
+        case .news:
             return navigateMoreScreen()
         default:
             return .none
@@ -27,10 +27,10 @@ class MoreSeeFlow: BaseFlow {
     }
 }
 
-extension MoreSeeFlow {
+extension NewsFlow {
     func navigateMoreScreen() -> FlowContributors {
-        return FlowSugar(viewModel: MoreSeeViewModel())
-            .presentable(MoreSeeViewController.self)
+        return FlowSugar(viewModel: NewsViewModel())
+            .presentable(NewsViewController.self)
             .oneStepPushBy(navigationController)
     }
 }

@@ -23,16 +23,16 @@ enum MainSteps: Step {
     case popToRootVC
     case popVC
     
-    // HomeFlow
+    // ExchangeFlow
     case popViewController
     case popModal
     
-    // SearchFlow
+    // BoardFlow
     
-    // MoreSeeFlow
+    // NewsFlow
     
     // MARK: - GNB TabBar
     case home
-    case search
-    case moreSee
+    case board
+    case news
 }

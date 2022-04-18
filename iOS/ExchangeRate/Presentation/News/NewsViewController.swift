@@ -1,5 +1,5 @@
 //
-//  MoreSeeViewController.swift
+//  NewsViewController.swift
 //  Basic
 //
 //  Created by pineone on 2021/09/16.
@@ -13,8 +13,8 @@ import Reusable
 import SnapKit
 import Then
 
-class MoreSeeViewController: UIBaseViewController, ViewModelProtocol {
-    typealias ViewModel = MoreSeeViewModel
+class NewsViewController: UIBaseViewController, ViewModelProtocol {
+    typealias ViewModel = NewsViewModel
     
     // MARK: - ViewModelProtocol
     var viewModel: ViewModel!
@@ -36,7 +36,7 @@ class MoreSeeViewController: UIBaseViewController, ViewModelProtocol {
     }
     
     // MARK: - View
-    let subView = MoreSeeView()
+    let subView = NewsView()
     
     func setupLayout() {
         view.addSubview(subView)
