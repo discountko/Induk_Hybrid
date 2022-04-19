@@ -46,12 +46,16 @@ class BoardView: UIBasePreviewType, UIScrollViewDelegate, WKUIDelegate, WKNaviga
     /// 로딩 인디게이터
     lazy var indicator = UIActivityIndicatorView(style: .large)
     
+    lazy var plusButton = UIButton().then {
+        $0.setImage(UIImage(named: "plus_icon_96"), for: .normal)
+    }
+    
     // MARK: - Outlets
     
     // MARK: - Methods
     func setupLayout() {
         backgroundColor = .white
-        addSubviews([webView, indicator])
+        addSubviews([webView, indicator, plusButton])
         
         webView.snp.makeConstraints {
             $0.top.equalTo(UIDevice.topSafeArea)
@@ -60,6 +64,12 @@ class BoardView: UIBasePreviewType, UIScrollViewDelegate, WKUIDelegate, WKNaviga
 
         indicator.snp.makeConstraints {
             $0.center.equalToSuperview()
+        }
+        
+        plusButton.snp.makeConstraints {
+            $0.bottom.equalToSuperview().offset(-15)
+            $0.trailing.equalToSuperview().offset(-10)
+            $0.size.equalTo(62.4)
         }
     }
     
