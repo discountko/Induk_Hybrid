@@ -23,6 +23,7 @@ struct TextFieldConfigModel {
     let needTextFieldAddButton: Bool?
     let needTextFieldClearButton: Bool?
     let needPreBackGroundColor: Bool?
+    let needSecureText: Bool?
     weak var endEditingWithView: UIView?
 }
 
@@ -60,7 +61,6 @@ class CustomTextField: CustomTextBase {
     private var textFieldFont: UIFont?
     /// 텍스트필드의 정렬 위치를 지정할수있습니다.
     private var textFieldAlignment: NSTextAlignment?
-    
     /// 플레이스홀더 내용을 지정할수있습니다.
     private var placeHolder: String = ""
     /// 플레이스홀더 폰트를 지정할수있습니다.
@@ -75,6 +75,8 @@ class CustomTextField: CustomTextBase {
     private var needTextFieldClearButton: Bool?
     /// 입력상태가 아닐때 텍스트필드의 백그라운드컬러를 사용할지 지정할수있습니다.
     private var needPreBackGroundColor: Bool = false
+    /// 텍스트의 값을 숨길지 여부 입니다.
+    private var needSecureText: Bool?
     ///  프로퍼티로 전달된 뷰에 탭(포커스아웃)을 통해 텍스트뷰 편집을 종료할수있습니다.
     private weak var endEditingWithView: UIView?
     
@@ -98,6 +100,7 @@ class CustomTextField: CustomTextBase {
         $0.backgroundColor = .clear
         $0.font = textFieldFont
         $0.textAlignment = textFieldAlignment ?? .left
+        $0.isSecureTextEntry = needSecureText ?? false
         let placeHolderAttr = NSAttributedString(string: placeHolder, attributes: [.foregroundColor: placeHolderColor ?? UIColor.lightGray,
                                                                                    .font: placeHolderFont ?? .notoSans(size: 16, weight: .regular)])
         $0.attributedPlaceholder = placeHolderAttr
@@ -133,6 +136,7 @@ class CustomTextField: CustomTextBase {
         placeHolderRightPadding = model.placeHolderRightPadding
         needTextFieldClearButton = model.needTextFieldClearButton
         needPreBackGroundColor = model.needPreBackGroundColor ?? false
+        needSecureText = model.needSecureText
         endEditingWithView = model.endEditingWithView
     }
     
@@ -276,7 +280,11 @@ extension CustomTextField {
 }
 
 extension CustomTextField {
-
+    
+    var getText: String? {
+        return textField.text
+    }
+    
     func getTextField() -> UITextField {
         return textField
     }

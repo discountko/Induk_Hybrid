@@ -11,9 +11,10 @@ import RxCocoa
 import RxSwift
 import RxFlow
 import Action
+import Firebase
 
 enum LoginActionType {
-    case goHome
+    case goHome(String?, String?)
 }
 
 class LoginViewModel: ViewModelType, Stepper {
@@ -44,9 +45,9 @@ class LoginViewModel: ViewModelType, Stepper {
     lazy var actionForButton = Action<LoginActionType, Void> { [weak self] in
         guard let `self` = self else { return .empty() }
         switch $0 {
-        case .goHome:
-            self.steps.accept(MainSteps.home)
-            //break;
+        case .goHome (let email, let password):
+            self.signIn(email, password: password)
+            //self.steps.accept(MainSteps.home)
         default: break
         }
         return .empty()
@@ -67,5 +68,47 @@ class LoginViewModel: ViewModelType, Stepper {
         return Output()
     }
     
+    func signIn(_ email: String?, password: String?) {
+        /// 1. 이메일 비밀번호 빈값여부 체크해서 로그인 버튼 활성/비활성
+        /// 2. 이메일 정규식
+        ///
+        /// 3. 이메일 만들기(회원가입)
+        /// 4. 비밀번호 찾기
+        /// 5. 이메일 문자인증
+        ///
+        /// 파베 아이디비번 : test12@naver.com // 123456
+        /// 의문점.. 비번/패스워드 싱글톤 서비스 만들어야겠다..
+        /// UserDefault에 저장해서 웹에 전송 해야 할 듯하다...
+        
+        guard let id = email, let pwd = password else {
+            print("email 또는 패스워드 빈값")
+            return
+        }
+        
+        
+        Auth.auth().signIn(withEmail: id, password: pwd) { [weak self] authResult, error in
+            guard let `self` = self else { return }
+            
+            if let result = authResult {
+                let info = (result.additionalUserInfo, result.user, result.credential, result.debugDescription)
+                print(info)
+            } else {
+                print(error.debugDescription)
+                
+                guard let errorInfo = error as? NSError else {
+                    print("error Nil!!")
+                    return
+                }
+                
+                print(errorInfo.code, errorInfo.domain)
+                // Error Code 처리하기!!!
+            }
+        }
+        
+        
+        
+        
+        
+    }
     
 }

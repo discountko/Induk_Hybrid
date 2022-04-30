@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		053DF31B281C012700588A7C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 053DF31A281C012700588A7C /* GoogleService-Info.plist */; };
 		C308DFAB280CF31D0051162B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C308DFA8280CF31D0051162B /* LoginViewController.swift */; };
 		C308DFAC280CF31D0051162B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C308DFA9280CF31D0051162B /* LoginView.swift */; };
 		C308DFAD280CF31D0051162B /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C308DFAA280CF31D0051162B /* LoginViewModel.swift */; };
@@ -102,6 +103,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		053DF31A281C012700588A7C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		750EA7D41E069ED84248471B /* Pods_ExchangeRate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ExchangeRate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9BB063E6498ADE313E18D13 /* Pods-ExchangeRate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExchangeRate.debug.xcconfig"; path = "Target Support Files/Pods-ExchangeRate/Pods-ExchangeRate.debug.xcconfig"; sourceTree = "<group>"; };
 		C308DFA8280CF31D0051162B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -496,6 +498,7 @@
 		C3B50DD02734B3AF00162B0B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				053DF31A281C012700588A7C /* GoogleService-Info.plist */,
 				C373985A2735105F00245B46 /* Bridging_Header.h */,
 				C3B50DD82734B3AF00162B0B /* Info.plist */,
 				C3B50DD72734B3AF00162B0B /* AppDelegate.swift */,
@@ -614,6 +617,7 @@
 				C37398562735100300245B46 /* NOTOSANSKR-MEDIUM-HESTIA.OTF in Resources */,
 				C3B50E2D2734B3B000162B0B /* Assets.xcassets in Resources */,
 				C3B50E2E2734B3B000162B0B /* LaunchScreen.storyboard in Resources */,
+				053DF31B281C012700588A7C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
