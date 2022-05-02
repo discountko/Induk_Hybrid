@@ -13,7 +13,7 @@ import Reusable
 import SnapKit
 import Then
 
-class LoginViewController: UIBaseViewController, ViewModelProtocol {
+class LoginViewController: BaseNavigationController, ViewModelProtocol { // UIBaseViewController
     typealias ViewModel = LoginViewModel
     
     // MARK: - ViewModelProtocol

@@ -40,4 +40,6 @@ enum MainSteps: Step {
     case news
     
     case login
+    case emailSignUp
+    case findPassword
 }

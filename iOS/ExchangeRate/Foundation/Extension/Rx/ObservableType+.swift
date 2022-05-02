@@ -10,6 +10,7 @@ import Action
 import Foundation
 import RxCocoa
 import RxSwift
+import Firebase
 
 extension ObservableType {
     @discardableResult
@@ -47,6 +48,32 @@ extension ObservableType {
                 }
             })
     }
+    
+//    @discardableResult
+//    func on(next: @escaping (Self.Element) -> Void, error errorHandler: ((Error?) -> Void)? = nil) -> Disposable {
+//        return subscribe(
+//            onNext: next,
+//            onError: { error in
+//                if let actionError = error as? ActionError {
+//                    switch actionError {
+//                    case .notEnabled:
+//                        errorHandler?(error)
+//                    case .underlyingError(let error):
+//                        if let errorInfo = error as? NSError {
+//                            
+//                            
+//                            Log.e("ErrorCode \(errorInfo.code), Domain \(errorInfo.domain)")
+//                            Log.e("Error Info : \(errorInfo.userInfo["FIRAuthErrorUserInfoNameKey"])")
+//                        }
+//                    }
+//                } else if let e = error as? NSError {
+//                    errorHandler?(e)
+//                    
+//                    Log.e("ErrorCode 222 \(e.code), Domain \(e.domain)")
+//                    Log.e("Error Info : \(e.userInfo["FIRAuthErrorUserInfoNameKey"])")
+//                }
+//            }
+//        )
 }
 
 extension ObservableType {

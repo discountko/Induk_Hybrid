@@ -15,6 +15,8 @@ import Firebase
 
 enum LoginActionType {
     case goHome(String?, String?)
+    case emailSignUp
+    case findPassword
 }
 
 class LoginViewModel: ViewModelType, Stepper {
@@ -50,7 +52,10 @@ class LoginViewModel: ViewModelType, Stepper {
         case .goHome (let email, let password):
             self.signIn(email, password: password)
             //self.steps.accept(MainSteps.home)
-        default: break
+        case .emailSignUp:
+            self.steps.accept(MainSteps.emailSignUp)
+        case .findPassword:
+            self.steps.accept(MainSteps.findPassword)
         }
         return .empty()
     }
@@ -86,13 +91,17 @@ class LoginViewModel: ViewModelType, Stepper {
         /// 자바스크립트로 로그인 정보전달
         /// 로그아웃시 웹도 로그아웃처리
         
+        // TODO: FB Info.plist Bundle ID를 프로젝트와 동일하게 맞춰줘야 한다!!
+        
         guard let id = email, let pwd = password else {
             print("email 또는 패스워드 빈값")
             return
         }
         
         
-        Auth.auth().signIn(withEmail: id, password: pwd) { [weak self] authResult, error in
+        //AuthManager.current.handle
+        
+        AuthManager.current.handle.signIn(withEmail: id, password: pwd) { [weak self] authResult, error in
             guard let `self` = self else { return }
             // AuthDataResult? Error?
             
@@ -101,9 +110,11 @@ class LoginViewModel: ViewModelType, Stepper {
                 Log.d("Result : \(info)")
                 self.steps.accept(MainSteps.home)
             } else {
-                Log.e("Error : \(error?.localizedDescription)")
-                Log.e("TT : \(error.debugDescription)")
+                let description = error?.localizedDescription ?? ""
                 
+                Log.e("Error : \(description)")
+                Log.e("Debug Description : \(error.debugDescription)")
+                Toast.show(description)
                 
                 guard let errorInfo = error as? NSError else {
                     print("error Nil!!")
@@ -114,9 +125,26 @@ class LoginViewModel: ViewModelType, Stepper {
             }
         }
         
+        //AuthManager.current.signIn(withEmail: <#T##String#>, password: <#T##String#>)
         
+        func verifyEmail() { // ActionCodeSettings
+            AuthManager.current.handle.currentUser?.sendEmailVerification(completion: { error in
+                print(error)
+            })
+
+        }
         
-        
+        func changePassword() {
+            AuthManager.current.handle.currentUser?.updatePassword(to: "새로운비밀번호", completion: { error in
+                
+                if let e = error {
+                    
+                    Log.e("Error : \(e)")
+                }
+                
+                
+            })
+        }
         
     }
     

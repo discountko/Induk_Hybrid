@@ -11,42 +11,68 @@ import RxSwift
 import UIKit
 import Firebase
 
+// https://firebase.google.com/docs/auth/ios/start
+
 class AuthManager {
     static let current = AuthManager()
     
+    var disposeBag = DisposeBag()
+    
     var state = PublishRelay<AuthStateDidChangeListenerHandle>()
     
-    let handle = Auth.auth()
+    var user: User? = Auth.auth().currentUser
     
-    func test() {
-        let tt = handle.addStateDidChangeListener { auth, user in
-            
+    let handle = Auth.auth().then {
+        $0.useAppLanguage()
+        $0.languageCode = "kr"
+    }
+    
+    /// 이메일 회원가입
+    func signUp(withEmail email: String, password pwd: String) -> (AuthDataResult?, Error?) {
+        var result: (AuthDataResult?, Error?) = (nil, nil)
+        
+        //handle.createUser(withEmail: <#T##String#>, password: <#T##String#>)
+        
+        // (AuthDataResult?, Error?)
+        handle.createUser(withEmail: email, password: pwd) { authDataResult, error in
+            result = (authDataResult, error)
         }
+        
+        return result
     }
     
-    func signIn(withEmail email: String?, password pwd: String) -> (AuthDataResult?, Error?) {
-        return (nil, nil)
+    /// 이메일 로그인
+    func signIn(withEmail email: String, password pwd: String, result: @escaping((AuthDataResult?, Error?) -> Void)) -> Void {
+        var result: (AuthDataResult?, Error?) = (nil, nil)
+        
+        handle.signIn(withEmail: email, password: pwd) { authDataResult, error in
+            result = (authDataResult, error)
+        }
+        
     }
     
-//    Auth.auth().signIn(withEmail: id, password: pwd) { [weak self] authResult, error in
-//        guard let `self` = self else { return }
-//
-//        if let result = authResult {
-//            let info = (result.additionalUserInfo, result.user, result.credential, result.debugDescription)
-//            Log.d("Result : \(info)")
-//            self.steps.accept(MainSteps.home)
-//        } else {
-//            Log.e("Error : \(error?.localizedDescription)")
-//            Log.e("TT : \(error.debugDescription)")
-//
-//
-//            guard let errorInfo = error as? NSError else {
-//                print("error Nil!!")
-//                return
-//            }
-//            Log.e("ErrorCode \(errorInfo.code), Domain \(errorInfo.domain)")
-//            Log.e("Test : \(errorInfo.userInfo["FIRAuthErrorUserInfoNameKey"])")
-//        }
-//    }
+    
+    // 인증 상태 수신 대기
+    func authState() {
+        // (Auth, User?)
+        let authListner = handle.addStateDidChangeListener { auth, user in
+            Log.d("result : \(auth), \(user)")
+        }
+        
+        state.accept(authListner)
+    }
+    
+    func removeState() {
+       handle.removeStateDidChangeListener(handle)
+    }
+    
+    func subscribeState() {
+        state.subscribe(onNext: { [weak self] in
+            guard let `self` = self else { return }
+            self.handle.removeStateDidChangeListener($0)
+        }).disposed(by: disposeBag)
+    }
+    
+    
     
 }

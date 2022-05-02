@@ -100,6 +100,13 @@
 		C3B50E322734B3B000162B0B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B50DD92734B3AF00162B0B /* SceneDelegate.swift */; };
 		C3CC59D02807E08A002D55EC /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CC59CF2807E08A002D55EC /* NetworkService.swift */; };
 		C3E6B0F9281F93D100A7953E /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E6B0F8281F93D100A7953E /* AuthManager.swift */; };
+		C3E6B0FE281FB11600A7953E /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E6B0FB281FB11600A7953E /* SignUpViewController.swift */; };
+		C3E6B0FF281FB11600A7953E /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E6B0FC281FB11600A7953E /* SignUpView.swift */; };
+		C3E6B100281FB11600A7953E /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E6B0FD281FB11600A7953E /* SignUpViewModel.swift */; };
+		C3E6B103281FBC7700A7953E /* ToastCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E6B102281FBC7700A7953E /* ToastCenter.swift */; };
+		C3E6B105281FBC9500A7953E /* Toaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E6B104281FBC9500A7953E /* Toaster.swift */; };
+		C3E6B107281FBCB400A7953E /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E6B106281FBCB400A7953E /* ToastView.swift */; };
+		C3E6B109281FBCD800A7953E /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E6B108281FBCD800A7953E /* Toast.swift */; };
 		F20EBDA99C4E01DE764D9E6F /* Pods_ExchangeRate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 750EA7D41E069ED84248471B /* Pods_ExchangeRate.framework */; };
 /* End PBXBuildFile section */
 
@@ -202,6 +209,13 @@
 		C3CC59CF2807E08A002D55EC /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		C3DF5FAC2734AC13006E9D2D /* ExchangeRate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExchangeRate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3E6B0F8281F93D100A7953E /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		C3E6B0FB281FB11600A7953E /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		C3E6B0FC281FB11600A7953E /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		C3E6B0FD281FB11600A7953E /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		C3E6B102281FBC7700A7953E /* ToastCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastCenter.swift; sourceTree = "<group>"; };
+		C3E6B104281FBC9500A7953E /* Toaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toaster.swift; sourceTree = "<group>"; };
+		C3E6B106281FBCB400A7953E /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		C3E6B108281FBCD800A7953E /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		F8CA57AC7E6E00224F8CC80C /* Pods-ExchangeRate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExchangeRate.release.xcconfig"; path = "Target Support Files/Pods-ExchangeRate/Pods-ExchangeRate.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -288,6 +302,7 @@
 		C3B50D6A2734B3AF00162B0B /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				C3E6B101281FBC6200A7953E /* Toast */,
 				C331A44F2766E7A70058F7BB /* Component */,
 				C3B50D6B2734B3AF00162B0B /* Extension */,
 				C3B50D922734B3AF00162B0B /* Control */,
@@ -449,6 +464,7 @@
 		C3B50DB72734B3AF00162B0B /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				C3E6B0FA281FB0DF00A7953E /* SignUp */,
 				C308DFA7280CF2830051162B /* Login */,
 				C3B50DB82734B3AF00162B0B /* Exchange */,
 				C3B50DBC2734B3AF00162B0B /* Board */,
@@ -543,6 +559,27 @@
 				C3B50DD02734B3AF00162B0B /* Supporting Files */,
 			);
 			path = ExchangeRate;
+			sourceTree = "<group>";
+		};
+		C3E6B0FA281FB0DF00A7953E /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				C3E6B0FB281FB11600A7953E /* SignUpViewController.swift */,
+				C3E6B0FC281FB11600A7953E /* SignUpView.swift */,
+				C3E6B0FD281FB11600A7953E /* SignUpViewModel.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		C3E6B101281FBC6200A7953E /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				C3E6B108281FBCD800A7953E /* Toast.swift */,
+				C3E6B106281FBCB400A7953E /* ToastView.swift */,
+				C3E6B102281FBC7700A7953E /* ToastCenter.swift */,
+				C3E6B104281FBC9500A7953E /* Toaster.swift */,
+			);
+			path = Toast;
 			sourceTree = "<group>";
 		};
 		CC4423C317AAEFD8530E2156 /* Pods */ = {
@@ -712,6 +749,7 @@
 				C35C3617276B2D2D00CDA30D /* TabPagerContents.swift in Sources */,
 				C3B50E1D2734B3B000162B0B /* BoardViewModel.swift in Sources */,
 				C3B50E192734B3B000162B0B /* ExchangeView.swift in Sources */,
+				C3E6B100281FB11600A7953E /* SignUpViewModel.swift in Sources */,
 				C38A2FF1280D2695004B64F2 /* TextField.swift in Sources */,
 				C373985027350F6400245B46 /* UIFont+Extension.swift in Sources */,
 				C3B50E062734B3B000162B0B /* ViewModelType.swift in Sources */,
@@ -731,6 +769,7 @@
 				C3B50DE32734B3AF00162B0B /* UIView+.swift in Sources */,
 				C3B50E1C2734B3B000162B0B /* BoardView.swift in Sources */,
 				C3A90E252739033700A70772 /* UIButton+.swift in Sources */,
+				C3E6B0FF281FB11600A7953E /* SignUpView.swift in Sources */,
 				C3B50E172734B3B000162B0B /* BaseFlow.swift in Sources */,
 				C3A14BB12734B93B009B0389 /* Log.swift in Sources */,
 				C3B50DEA2734B3AF00162B0B /* UILabel+.swift in Sources */,
@@ -743,6 +782,7 @@
 				C3B50DE82734B3AF00162B0B /* UIImageView+.swift in Sources */,
 				C3B50DF82734B3AF00162B0B /* CollectionView+Rx.swift in Sources */,
 				C308DFAC280CF31D0051162B /* LoginView.swift in Sources */,
+				C3E6B109281FBCD800A7953E /* Toast.swift in Sources */,
 				C3B50E102734B3B000162B0B /* ExchangeStepper.swift in Sources */,
 				C3B50E182734B3B000162B0B /* ExchangeViewModel.swift in Sources */,
 				C3B50E042734B3B000162B0B /* ViewBased.swift in Sources */,
@@ -752,10 +792,13 @@
 				C38A2FF5280D27E7004B64F2 /* CustomTextField.swift in Sources */,
 				C331A44E2766DEF70058F7BB /* R.swift in Sources */,
 				C3B50DE92734B3AF00162B0B /* UIViewController+.swift in Sources */,
+				C3E6B107281FBCB400A7953E /* ToastView.swift in Sources */,
 				C3B50E012734B3B000162B0B /* BaseNaviBar.swift in Sources */,
 				C3B50E002734B3B000162B0B /* BaseNavigationController.swift in Sources */,
+				C3E6B105281FBC9500A7953E /* Toaster.swift in Sources */,
 				C3B50DF32734B3AF00162B0B /* UIScrollView+Rx.swift in Sources */,
 				C3B50E302734B3B000162B0B /* AppDelegate.swift in Sources */,
+				C3E6B0FE281FB11600A7953E /* SignUpViewController.swift in Sources */,
 				C3B50DF72734B3AF00162B0B /* UITableView+Rx.swift in Sources */,
 				C35C3621276B2D9B00CDA30D /* UIPageViewController+.swift in Sources */,
 				C3B50E122734B3B000162B0B /* AppStepper.swift in Sources */,
@@ -773,6 +816,7 @@
 				C397A12D2738F06400821B36 /* UIDevice+.swift in Sources */,
 				C3B50E322734B3B000162B0B /* SceneDelegate.swift in Sources */,
 				C3B50DE62734B3AF00162B0B /* UIStackView+.swift in Sources */,
+				C3E6B103281FBC7700A7953E /* ToastCenter.swift in Sources */,
 				C3B50DEE2734B3AF00162B0B /* UIScrollView+.swift in Sources */,
 				C3B50DF12734B3AF00162B0B /* UIImage+.swift in Sources */,
 				C3B50DE02734B3AF00162B0B /* Array+.swift in Sources */,

@@ -45,9 +45,13 @@ class InitFlow: Flow {
             return self.navigate(to: MainSteps.loginCheck)
         case .loginCheck:
             return rootSetIntro()
+        case .emailSignUp:
+            return moveToHome()
+            //return navigateToEmailSignUp()
+        case .findPassword:
+            return moveToHome()
         case .home:
             return moveToHome()
-            
         case .moveTab(let index):
             rootViewController.selectTabBarWith(index: index)
             return .none
@@ -59,6 +63,28 @@ class InitFlow: Flow {
 }
 
 extension InitFlow {
+    // FIXME: 네비게이션 고치기!!
+    private func navigateToEmailSignUp() -> FlowContributors {
+        if let topVC = UIApplication.shared.topViewController, topVC is LoginViewController {
+            let naviVC = topVC as! UINavigationController
+            
+            return FlowSugar(viewModel: SignUpViewModel())
+                .presentable(SignUpViewController.self)
+                .oneStepPushBy(naviVC)
+        } else {
+            let topVC2 = UIApplication.shared.topViewController as? LoginViewController
+            
+            return FlowSugar(viewModel: SignUpViewModel())
+                .presentable(SignUpViewController.self)
+                .oneStepPushBy(topVC2!)
+        }
+        
+
+        
+
+    }
+    
+    
     private func checkLogin() -> FlowContributors {
         let sugar = FlowSugar(viewModel: LoginViewModel())
             .presentable(LoginViewController.self)
@@ -66,9 +92,7 @@ extension InitFlow {
         if let vc = sugar.getViewController() {
             rootViewController.tabBar.isHidden = true
         }
-        
         return .none
-            
     }
     
     
