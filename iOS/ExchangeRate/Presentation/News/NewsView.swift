@@ -28,23 +28,20 @@ class NewsView: UIBasePreviewType {
     }
     
     // MARK: - View
-    lazy var loginButton = UIButton().then {
-        $0.setTitle("로그인", for: .normal)
-        $0.setBackgroundColor(.gray, for: .highlighted)
-        $0.cornerRadius = 10
+    lazy var fullView = UIView().then {
+        $0.backgroundColor = .green  ~ 50%
     }
+    
     
     // MARK: - Methods
     func setupLayout() {
         backgroundColor = .white
         
-        addSubviews([loginButton])
+        addSubviews([fullView])
         
-        loginButton.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(50)
-            $0.centerX.equalToSuperview()
+        fullView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
-        
     }
     
     func setupDI(observable: Observable<[Model]>) {

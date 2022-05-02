@@ -18,13 +18,15 @@ enum LoginActionType {
 }
 
 class LoginViewModel: ViewModelType, Stepper {
-    // MARK: - Stepper
-    var steps = PublishRelay<Step>()
-    
     // MARK: - ViewModelType Protocol
     typealias ViewModel = LoginViewModel
     
-    var disposeBag = DisposeBag()
+    // MARK: - Stepper
+    var steps = PublishRelay<Step>()
+    
+    private var disposeBag = DisposeBag()
+    
+    //private loginAction = Action <(String?, String?), > (workFactory: <#T##(String?) -> ObservableConvertibleType#>
     
     // TODO: - Deinit 개발 완료 한 뒤 메모리가 정상적으로 해제 되면 삭제!
     deinit {
@@ -78,7 +80,11 @@ class LoginViewModel: ViewModelType, Stepper {
         ///
         /// 파베 아이디비번 : test12@naver.com // 123456
         /// 의문점.. 비번/패스워드 싱글톤 서비스 만들어야겠다..
-        /// UserDefault에 저장해서 웹에 전송 해야 할 듯하다...
+        /// KeyChain 사용해서 웹에 헤더 전송 해야 할 듯하다...
+        ///
+        /// 우선순위
+        /// 자바스크립트로 로그인 정보전달
+        /// 로그아웃시 웹도 로그아웃처리
         
         guard let id = email, let pwd = password else {
             print("email 또는 패스워드 빈값")
@@ -88,20 +94,23 @@ class LoginViewModel: ViewModelType, Stepper {
         
         Auth.auth().signIn(withEmail: id, password: pwd) { [weak self] authResult, error in
             guard let `self` = self else { return }
+            // AuthDataResult? Error?
             
             if let result = authResult {
                 let info = (result.additionalUserInfo, result.user, result.credential, result.debugDescription)
-                print(info)
+                Log.d("Result : \(info)")
+                self.steps.accept(MainSteps.home)
             } else {
-                print(error.debugDescription)
+                Log.e("Error : \(error?.localizedDescription)")
+                Log.e("TT : \(error.debugDescription)")
+                
                 
                 guard let errorInfo = error as? NSError else {
                     print("error Nil!!")
                     return
                 }
-                
-                print(errorInfo.code, errorInfo.domain)
-                // Error Code 처리하기!!!
+                Log.e("ErrorCode \(errorInfo.code), Domain \(errorInfo.domain)")
+                Log.e("Test : \(errorInfo.userInfo["FIRAuthErrorUserInfoNameKey"])")
             }
         }
         

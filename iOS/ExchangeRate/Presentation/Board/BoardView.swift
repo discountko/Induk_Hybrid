@@ -21,9 +21,9 @@ class BoardView: UIBasePreviewType, UIScrollViewDelegate, WKUIDelegate, WKNaviga
     let actionRelay = PublishRelay<BoardActionType>()
 
     // MARK: - init
-    override init(naviType: BaseNavigationShowType = .none) {
+    override init(naviType: BaseNavigationShowType = .centerTitleRightLogout) {
         super.init(naviType: naviType)
-        naviBar.title = "제목"
+        naviBar.title = "게시판"
         setupLayout()
     }
     
@@ -46,30 +46,20 @@ class BoardView: UIBasePreviewType, UIScrollViewDelegate, WKUIDelegate, WKNaviga
     /// 로딩 인디게이터
     lazy var indicator = UIActivityIndicatorView(style: .large)
     
-    lazy var plusButton = UIButton().then {
-        $0.setImage(UIImage(named: "plus_icon_96"), for: .normal)
-    }
-    
     // MARK: - Outlets
     
     // MARK: - Methods
     func setupLayout() {
         backgroundColor = .white
-        addSubviews([webView, indicator, plusButton])
+        addSubviews([webView, indicator])
         
         webView.snp.makeConstraints {
-            $0.top.equalTo(UIDevice.topSafeArea)
+            $0.top.equalTo(naviBar.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
 
         indicator.snp.makeConstraints {
             $0.center.equalToSuperview()
-        }
-        
-        plusButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(-15)
-            $0.trailing.equalToSuperview().offset(-10)
-            $0.size.equalTo(62.4)
         }
     }
     
@@ -90,6 +80,10 @@ class BoardView: UIBasePreviewType, UIScrollViewDelegate, WKUIDelegate, WKNaviga
                 self.webView.load(URLRequest(url: url))
             }
         }).disposed(by: rx.disposeBag)
+    }
+    
+    func bindData() {
+        
     }
 }
 

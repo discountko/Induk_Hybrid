@@ -12,6 +12,7 @@ import UIKit
 class AppStepper: Stepper {
     
     static let shared = AppStepper()
+    
     let steps = PublishRelay<Step>()
 
     var initialStep: Step {

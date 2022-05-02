@@ -43,7 +43,6 @@ class InitFlow: Flow {
         switch step {
         case .initialization:
             return self.navigate(to: MainSteps.loginCheck)
-            
         case .loginCheck:
             return rootSetIntro()
         case .home:

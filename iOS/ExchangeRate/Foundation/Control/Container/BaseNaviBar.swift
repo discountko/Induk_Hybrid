@@ -20,6 +20,7 @@ enum BaseNavigationActionType {
     case delete
     case inspect
     case dismiss
+    case logout
 }
 
 enum BaseNavigationShowType {
@@ -51,6 +52,8 @@ enum BaseNavigationShowType {
     case onlyRightX
     /// 왼쪽 back 가운데 title 우측 Delete
     case backTitleRightDelete
+    /// 가운데 제목, 우측 로그아웃
+    case centerTitleRightLogout
 }
 
 
@@ -162,6 +165,16 @@ class BaseNavigationBar: UIView {
             .debounce(.milliseconds(200), scheduler: MainScheduler.instance)
             .map { .delete }.bind(to: navigationAction).disposed(by: rx.disposeBag)
     }
+    
+    lazy var logout = UIButton().then {
+        $0.setTitle("로그아웃", for: .normal)
+        $0.setTitleColor(.black, for: .normal)
+        $0.setTitleColor(.red , for: .highlighted)
+        $0.isHidden = true
+        $0.rx.tap
+            .debounce(.microseconds(200), scheduler: MainScheduler.instance)
+            .map { .logout }.bind(to: navigationAction).disposed(by: rx.disposeBag)
+    }
 
     lazy var navBarHeight: CGFloat = naviBarHeight()
 
@@ -194,7 +207,7 @@ class BaseNavigationBar: UIView {
             $0.top.equalToSafeAreaAuto(self)
         }
 
-        containerView.addSubviews([homeLogoImageView, backButton, titleLabel, titleButton, searchButton, imageAugmentationButton, countLabel, bottomLine, closeButton, settingButton, moreButton, deleteButton])
+        containerView.addSubviews([homeLogoImageView, backButton, titleLabel, titleButton, searchButton, imageAugmentationButton, countLabel, bottomLine, closeButton, settingButton, moreButton, deleteButton, logout])
 
         homeLogoImageView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
@@ -330,6 +343,15 @@ class BaseNavigationBar: UIView {
 //                $0.trailing.equalTo(moreButton.snp.leading)
             }
             break
+        case .centerTitleRightLogout:
+            [titleLabel, logout].forEach { $0.isHidden = false }
+            titleLabel.snp.remakeConstraints {
+                $0.center.equalToSuperview()
+            }
+            logout.snp.makeConstraints {
+                $0.centerY.equalToSuperview()
+                $0.trailing.equalToSuperview().offset(-15)
+            }
         case .none:
             break
         }

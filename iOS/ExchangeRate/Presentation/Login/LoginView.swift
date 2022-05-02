@@ -82,10 +82,6 @@ class LoginView: UIBasePreviewType {
         $0.cornerRadius = 10
         $0.borderWidth = 1
         $0.borderColor = UIColor(226, 226, 230, 0.7)
-//        $0.rx.tap
-//            .map { .goHome }
-//            .bind(to: actionRelay)
-//            .disposed(by: rx.disposeBag)
     }
     
     // MARK: - Outlets
@@ -143,7 +139,7 @@ class LoginView: UIBasePreviewType {
                 let email = self.emailTextField.getText
                 let password = self.passwordTextField.getText
                 
-                return .goHome(email, password)
+                return .goHome("test12@naver.com", password)
             }
             .bind(to: actionRelay)
             .disposed(by: rx.disposeBag)
