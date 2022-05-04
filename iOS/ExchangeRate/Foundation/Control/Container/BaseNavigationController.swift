@@ -11,6 +11,7 @@ import RxSwift
 import UIKit
 
 class BaseNavigationController: UINavigationController {
+    static let shared = BaseNavigationController()
     var forceAnimation = false
     var isEnableForceAnimation = false
 

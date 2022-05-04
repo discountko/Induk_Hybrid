@@ -12,6 +12,7 @@ enum MainSteps: Step {
     case initialization
     case loginCheck
     
+    case moveToMain
     
     case permissionCompleted
     
@@ -35,7 +36,7 @@ enum MainSteps: Step {
     // NewsFlow
     
     // MARK: - GNB TabBar
-    case home
+    case exchangeRate
     case board
     case news
     

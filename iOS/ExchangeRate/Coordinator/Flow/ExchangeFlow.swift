@@ -18,9 +18,8 @@ class ExchangeFlow: BaseFlow {
 
         guard let step = step as? MainSteps else { return .none }
         switch step {
-        case .home:
-            return self.navigateToExcahngeScreen()
-
+        case .exchangeRate:
+            return self.navigateToExchangeScreen()
         case .popViewController:
             _ = self.navigationController.popViewController(animated: true)
             return .none
@@ -44,7 +43,7 @@ class ExchangeFlow: BaseFlow {
 }
 
 extension ExchangeFlow {
-    private func navigateToExcahngeScreen() -> FlowContributors {
+    private func navigateToExchangeScreen() -> FlowContributors {
         return FlowSugar(viewModel: ExchangeViewModel())
             .presentable(ExchangeViewController.self)
             .oneStepPushBy(navigationController)

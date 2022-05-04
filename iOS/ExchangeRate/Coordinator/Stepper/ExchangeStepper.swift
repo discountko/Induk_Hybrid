@@ -15,7 +15,7 @@ class ExchangeStepper: Stepper {
     let steps = PublishRelay<Step>()
 
     var initialStep: Step {
-        return MainSteps.home
+        return MainSteps.exchangeRate
     }
     
     private init() {}

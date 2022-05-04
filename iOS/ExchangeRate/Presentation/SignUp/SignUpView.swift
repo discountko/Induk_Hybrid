@@ -20,8 +20,9 @@ class SignUpView: UIBasePreviewType {
     let actionRelay = PublishRelay<SignUpActionType>()
     
     // MARK: - init
-    override init(naviType: BaseNavigationShowType = .none) {
+    override init(naviType: BaseNavigationShowType = .backCenterTitle) {
         super.init(naviType: naviType)
+        naviBar.title = "비밀번호 찾기"
         setupLayout()
         bindData()
     }
@@ -45,6 +46,10 @@ class SignUpView: UIBasePreviewType {
     
     // MARK: - Methods
     func setupLayout() {
+        backgroundColor = .white
+        
+        // $0.top.equalTo(naviBar.snp.bottom)
+        
         addSubview(label)
         label.snp.makeConstraints {
             $0.center.equalToSuperview()

@@ -24,8 +24,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let window = window {
             self.coordinator.coordinate(flow: appFlow, with: AppStepper.shared)
             Flows.use(appFlow, when: .created) { root in
-                window.rootViewController = root
-                window.makeKeyAndVisible()
+                if let naviRoot = root as? BaseNavigationController {
+                    window.rootViewController = naviRoot
+                    window.makeKeyAndVisible()
+                }
             }
         }
     }

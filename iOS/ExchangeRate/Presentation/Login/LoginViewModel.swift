@@ -108,7 +108,7 @@ class LoginViewModel: ViewModelType, Stepper {
             if let result = authResult {
                 let info = (result.additionalUserInfo, result.user, result.credential, result.debugDescription)
                 Log.d("Result : \(info)")
-                self.steps.accept(MainSteps.home)
+                self.steps.accept(MainSteps.moveToMain)
             } else {
                 let description = error?.localizedDescription ?? ""
                 

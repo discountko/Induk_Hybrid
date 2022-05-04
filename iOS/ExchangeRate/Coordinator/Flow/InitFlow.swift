@@ -15,28 +15,18 @@ import RxCocoa
 class InitFlow: Flow {
     var root: Presentable { return self.rootViewController }
     
-    private lazy var rootViewController = BaseTabBarController.shared
+    private lazy var rootViewController = BaseNavigationController()
     
-    let disposeBag = DisposeBag()
     
-    let homeFlow = ExchangeFlow()
-    let boardFlow = BoardFlow()
-    let newsFlow = NewsFlow()
+    /// Init Sequence : NavigationVC
+    ///     AppLaunch > Permission > Network, App Version, SupportDevice...
+    ///     > Agree > (Auto)Login > .. > `MAIN_SEQUENCE`
+    ///
+    /// Main Sequence :  TabBar > NavigationVC
+    ///     FirstTab > First_1 > First_2
+    ///     SecondTab > Second_1 > Second_2
+    ///     ThirdTab > Third_1 > Third_2
     
-    var tabBarTitle: [String] {
-        return ["환율전환", "게시판", "뉴스"]
-    }
-    
-    var sfSymbols = ["person.crop.circle", "person.crop.circle.fill", "house.circle", "house.circle.fill", "newspaper.circle", "newspaper.circle.fill"]
-    
-    var tabBarImage: [UIImage] {
-        return [UIImage(systemName: sfSymbols[0])!, UIImage(systemName: sfSymbols[2])!, UIImage(systemName: sfSymbols[4])!]
-        
-    }
-    var tabBarImageS: [UIImage] {
-        return [UIImage(systemName: sfSymbols[1])!, UIImage(systemName: sfSymbols[3])!, UIImage(systemName: sfSymbols[5])!]
-    }
-
     func navigate(to step: Step) -> FlowContributors {
         guard let step = step as? MainSteps  else { return .none }
         
@@ -46,93 +36,56 @@ class InitFlow: Flow {
         case .loginCheck:
             return rootSetIntro()
         case .emailSignUp:
-            return moveToHome()
-            //return navigateToEmailSignUp()
+            return navigateToMain()
         case .findPassword:
-            return moveToHome()
-        case .home:
-            return moveToHome()
-        case .moveTab(let index):
-            rootViewController.selectTabBarWith(index: index)
-            return .none
-            
+            return navigateToSignUp()
+        case .popViewController:
+            _ = rootViewController.popViewController(animated: true)
         default:
             return .none
         }
+        return .none
     }
 }
 
 extension InitFlow {
-    // FIXME: 네비게이션 고치기!!
-    private func navigateToEmailSignUp() -> FlowContributors {
-        if let topVC = UIApplication.shared.topViewController, topVC is LoginViewController {
-            let naviVC = topVC as! UINavigationController
-            
-            return FlowSugar(viewModel: SignUpViewModel())
-                .presentable(SignUpViewController.self)
-                .oneStepPushBy(naviVC)
-        } else {
-            let topVC2 = UIApplication.shared.topViewController as? LoginViewController
-            
-            return FlowSugar(viewModel: SignUpViewModel())
-                .presentable(SignUpViewController.self)
-                .oneStepPushBy(topVC2!)
-        }
-        
-
-        
-
-    }
-    
-    
-    private func checkLogin() -> FlowContributors {
-        let sugar = FlowSugar(viewModel: LoginViewModel())
-            .presentable(LoginViewController.self)
-        
-        if let vc = sugar.getViewController() {
-            rootViewController.tabBar.isHidden = true
-        }
-        return .none
-    }
-    
-    
     private func rootSetIntro() -> FlowContributors {
         let sugar = FlowSugar(viewModel: LoginViewModel())
             .presentable(LoginViewController.self)
 
         if let vc = sugar.getViewController() {
-            rootViewController.tabBar.isHidden = true
-            rootViewController.setViewControllers([vc], animated: true)
+            rootViewController.pushViewController(vc, animated: true)
             return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: sugar.vm))
         }
-
         return .none
     }
     
-    private func moveToHome() -> FlowContributors {
-        // 탭바 초기 설정
-        let flows: [Flow] = [homeFlow, boardFlow, newsFlow]
+    private func navigateToSignUp() -> FlowContributors {
+        return FlowSugar(viewModel: SignUpViewModel())
+            .presentable(SignUpViewController.self)
+            .oneStepPushBy(rootViewController)
+        
+        /* 방법2. UIKit의 pushViewController 사용
+        let sugar = FlowSugar(viewModel: SignUpViewModel())
+            .presentable(SignUpViewController.self)
+        rootViewController.pushViewController(sugar.vc!, animated: true)
 
-        Flows.use(flows, when: .created) { [unowned self] (roots: [BaseNavigationController]) in
-            for(index, root) in roots.enumerated() {
-                Log.d("index = \(index), root = \(root)")
-                root.tabBarItem = UITabBarItem(title: tabBarTitle[index],
-                                               image: tabBarImage[index].withTintColor(.black).withRenderingMode(.alwaysOriginal),
-                                               selectedImage: tabBarImageS[index].withTintColor(.black).withRenderingMode(.alwaysOriginal))
-                root.tabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
-                root.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 0)
-            }
-            
-            UITabBarItem.setupBarItem()
-            
-            self.rootViewController.tabBar.isHidden = false
-            self.rootViewController.setViewControllers(roots, animated: true)
+        if let vc = sugar.getViewController() {
+            return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: sugar.vm))
+        }
+        return .none
+         */
+    }
+    
+    /// 로그인 완료 후 메인으로 이동!!!
+    private func navigateToMain() -> FlowContributors {
+        let mainFlow = MainFlow()
+        
+        Flows.use(mainFlow, when: .created) { [weak self] root in
+            guard let `self` = self else { return }
+            self.rootViewController.pushViewController(root, animated: true)
         }
         
-        return .multiple(flowContributors: [
-            .contribute(withNextPresentable: homeFlow, withNextStepper: ExchangeStepper.shared),
-            .contribute(withNextPresentable: boardFlow, withNextStepper: BoardStepper.shared),
-            .contribute(withNextPresentable: newsFlow, withNextStepper: NewsStepper.shared)
-        ])
+        return .one(flowContributor: .contribute(withNextPresentable: mainFlow, withNextStepper: OneStepper(withSingleStep: MainSteps.moveToMain)))
     }
 }
