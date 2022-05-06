@@ -82,6 +82,21 @@ DATABASES = {
     }
 }
 
+#firebase?
+# import os
+# from pathlib import Path
+# import firebase_admin
+# from firebase_admin import credentials
+# from firebase_admin import db
+
+# ROOT_DIR = Path(__file__).resolve().parent.parent
+# CONFIG_PATH = os.path.join(ROOT_DIR, 'templates\\induk-hybrid-firebase-adminsdk-2bnfi-fd46a3eed7.json')
+
+# db_url = 'https://induk-hybrid.firebaseio.com/'
+# cred = credentials.Certificate(CONFIG_PATH)
+# firebase_admin.initialize_app(cred, {'databaseURL':db_url})
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
