@@ -22,7 +22,7 @@ class SignUpView: UIBasePreviewType {
     // MARK: - init
     override init(naviType: BaseNavigationShowType = .backCenterTitle) {
         super.init(naviType: naviType)
-        naviBar.title = "비밀번호 찾기"
+        naviBar.title = "회원가입"
         setupLayout()
         bindData()
     }

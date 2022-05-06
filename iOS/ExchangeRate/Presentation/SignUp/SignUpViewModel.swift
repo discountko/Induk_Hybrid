@@ -35,7 +35,8 @@ class SignUpViewModel: ViewModelType, Stepper {
         guard let `self` = self else { return .empty() }
         switch $0 {
         case .back:
-            self.steps.accept(MainSteps.popViewController)
+            self.steps.accept(MainSteps.backToLogin)
+            self.steps.accept(MainSteps.initialization)
         default: break
         }
         return .empty()

@@ -11,22 +11,38 @@ import Then
 import RxSwift
 import RxCocoa
 
-/// Init과 Main(Tab)을 분리하느냐... 아니면 합치느냐..
+/*
+ 메모리 해제가 정상적으로 되지 않는다..!!
+ 로그인 -> 회원가입 -> 로그인
+ 로그인 -> 로그아웃 -> 로그인
+ */
 class InitFlow: Flow {
     var root: Presentable { return self.rootViewController }
     
-    private lazy var rootViewController = BaseNavigationController()
+    private lazy var rootViewController = BaseTabBarController.shared
     
+    let disposeBag = DisposeBag()
     
-    /// Init Sequence : NavigationVC
-    ///     AppLaunch > Permission > Network, App Version, SupportDevice...
-    ///     > Agree > (Auto)Login > .. > `MAIN_SEQUENCE`
-    ///
-    /// Main Sequence :  TabBar > NavigationVC
-    ///     FirstTab > First_1 > First_2
-    ///     SecondTab > Second_1 > Second_2
-    ///     ThirdTab > Third_1 > Third_2
+    let homeFlow = ExchangeFlow()
+    let boardFlow = BoardFlow()
+    let newsFlow = NewsFlow()
     
+    var tabBarTitle: [String] {
+        return ["환율전환", "게시판", "뉴스"]
+    }
+    
+    var sfSymbols = ["person.crop.circle", "person.crop.circle.fill",
+                     "house.circle", "house.circle.fill",
+                     "newspaper.circle", "newspaper.circle.fill"]
+    
+    var tabBarImage: [UIImage] {
+        return [UIImage(systemName: sfSymbols[0])!, UIImage(systemName: sfSymbols[2])!, UIImage(systemName: sfSymbols[4])!]
+        
+    }
+    var tabBarImageS: [UIImage] {
+        return [UIImage(systemName: sfSymbols[1])!, UIImage(systemName: sfSymbols[3])!, UIImage(systemName: sfSymbols[5])!]
+    }
+
     func navigate(to step: Step) -> FlowContributors {
         guard let step = step as? MainSteps  else { return .none }
         
@@ -36,15 +52,19 @@ class InitFlow: Flow {
         case .loginCheck:
             return rootSetIntro()
         case .emailSignUp:
-            return navigateToMain()
+            return navigateToEmailSignUp()
         case .findPassword:
-            return navigateToSignUp()
-        case .popViewController:
-            _ = rootViewController.popViewController(animated: true)
+            return moveToHome()
+        case .home:
+            return moveToHome()
+        case .moveTab(let index):
+            rootViewController.selectTabBarWith(index: index)
+            return .none
+        case .backToLogin:
+            return .end(forwardToParentFlowWithStep: MainSteps.initialization)
         default:
             return .none
         }
-        return .none
     }
 }
 
@@ -54,38 +74,50 @@ extension InitFlow {
             .presentable(LoginViewController.self)
 
         if let vc = sugar.getViewController() {
-            rootViewController.pushViewController(vc, animated: true)
+            rootViewController.tabBar.isHidden = true
+            rootViewController.setViewControllers([vc], animated: true)
             return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: sugar.vm))
         }
         return .none
     }
     
-    private func navigateToSignUp() -> FlowContributors {
-        return FlowSugar(viewModel: SignUpViewModel())
-            .presentable(SignUpViewController.self)
-            .oneStepPushBy(rootViewController)
-        
-        /* 방법2. UIKit의 pushViewController 사용
+    private func navigateToEmailSignUp() -> FlowContributors {
         let sugar = FlowSugar(viewModel: SignUpViewModel())
             .presentable(SignUpViewController.self)
-        rootViewController.pushViewController(sugar.vc!, animated: true)
-
+//            .oneStepModalPresentMakeNavi(rootViewController, .automatic)
+//        return sugar
+        
         if let vc = sugar.getViewController() {
+            rootViewController.setViewControllers([vc], animated: true)
             return .one(flowContributor: .contribute(withNextPresentable: vc, withNextStepper: sugar.vm))
         }
         return .none
-         */
     }
     
-    /// 로그인 완료 후 메인으로 이동!!!
-    private func navigateToMain() -> FlowContributors {
-        let mainFlow = MainFlow()
+    private func moveToHome() -> FlowContributors {
+        // 탭바 초기 설정
+        let flows: [Flow] = [homeFlow, boardFlow, newsFlow]
         
-        Flows.use(mainFlow, when: .created) { [weak self] root in
-            guard let `self` = self else { return }
-            self.rootViewController.pushViewController(root, animated: true)
+        Flows.use(flows, when: .created) { [unowned self] (roots: [BaseNavigationController]) in
+            for(index, root) in roots.enumerated() {
+                Log.d("index = \(index), root = \(root)")
+                root.tabBarItem = UITabBarItem(title: tabBarTitle[index],
+                                               image: tabBarImage[index].withTintColor(.black).withRenderingMode(.alwaysOriginal),
+                                               selectedImage: tabBarImageS[index].withTintColor(.black).withRenderingMode(.alwaysOriginal))
+                root.tabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
+                root.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 0)
+            }
+            
+            UITabBarItem.setupBarItem()
+            
+            self.rootViewController.tabBar.isHidden = false
+            self.rootViewController.setViewControllers(roots, animated: true)
         }
         
-        return .one(flowContributor: .contribute(withNextPresentable: mainFlow, withNextStepper: OneStepper(withSingleStep: MainSteps.moveToMain)))
+        return .multiple(flowContributors: [
+            .contribute(withNextPresentable: homeFlow, withNextStepper: ExchangeStepper.shared),
+            .contribute(withNextPresentable: boardFlow, withNextStepper: BoardStepper.shared),
+            .contribute(withNextPresentable: newsFlow, withNextStepper: NewsStepper.shared)
+        ])
     }
 }

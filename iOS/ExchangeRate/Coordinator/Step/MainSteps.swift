@@ -19,6 +19,10 @@ enum MainSteps: Step {
     /// App Inactive
     case exitApp
     
+    /// Login To Home
+    case home
+    case backToLogin
+    
     // common
     case moveTab(index: TabPage)
     

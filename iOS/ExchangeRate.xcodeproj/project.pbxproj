@@ -98,7 +98,6 @@
 		C3B50E2E2734B3B000162B0B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3B50DD32734B3AF00162B0B /* LaunchScreen.storyboard */; };
 		C3B50E302734B3B000162B0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B50DD72734B3AF00162B0B /* AppDelegate.swift */; };
 		C3B50E322734B3B000162B0B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3B50DD92734B3AF00162B0B /* SceneDelegate.swift */; };
-		C3CAC63828226D8F005B2A83 /* MainFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CAC63728226D8F005B2A83 /* MainFlow.swift */; };
 		C3CC59D02807E08A002D55EC /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CC59CF2807E08A002D55EC /* NetworkService.swift */; };
 		C3E6B0F9281F93D100A7953E /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E6B0F8281F93D100A7953E /* AuthManager.swift */; };
 		C3E6B0FE281FB11600A7953E /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E6B0FB281FB11600A7953E /* SignUpViewController.swift */; };
@@ -207,7 +206,6 @@
 		C3B50DD72734B3AF00162B0B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3B50DD82734B3AF00162B0B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3B50DD92734B3AF00162B0B /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C3CAC63728226D8F005B2A83 /* MainFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFlow.swift; sourceTree = "<group>"; };
 		C3CC59CF2807E08A002D55EC /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		C3DF5FAC2734AC13006E9D2D /* ExchangeRate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExchangeRate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3E6B0F8281F93D100A7953E /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
@@ -456,7 +454,6 @@
 			children = (
 				C3B50DB62734B3AF00162B0B /* BaseFlow.swift */,
 				C3B50DB52734B3AF00162B0B /* InitFlow.swift */,
-				C3CAC63728226D8F005B2A83 /* MainFlow.swift */,
 				C3B50DB22734B3AF00162B0B /* ExchangeFlow.swift */,
 				C3B50DB42734B3AF00162B0B /* BoardFlow.swift */,
 				C3B50DB32734B3AF00162B0B /* NewsFlow.swift */,
@@ -762,7 +759,6 @@
 				C35C361D276B2D5C00CDA30D /* TabPagerHeaderView.swift in Sources */,
 				C3B50DE12734B3AF00162B0B /* TableView+.swift in Sources */,
 				C3B50DDB2734B3AF00162B0B /* NSString+.swift in Sources */,
-				C3CAC63828226D8F005B2A83 /* MainFlow.swift in Sources */,
 				C3E6B0F9281F93D100A7953E /* AuthManager.swift in Sources */,
 				C308DFAB280CF31D0051162B /* LoginViewController.swift in Sources */,
 				C3B50E0E2734B3B000162B0B /* MainSteps.swift in Sources */,
