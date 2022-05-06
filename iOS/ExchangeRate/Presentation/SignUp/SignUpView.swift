@@ -37,9 +37,38 @@ class SignUpView: UIBasePreviewType {
     }
     
     // MARK: - View
-    lazy var label = UILabel().then {
-        $0.text = "SignUp View"
-        $0.textColor = .red
+    lazy var textFieldModel: ((Bool) -> TextFieldConfigModel) = { bool -> TextFieldConfigModel in
+        TextFieldConfigModel(maxLength: 60,
+                             maxLine: 0,
+                             textFieldFont: .notoSans(size: 16, weight: .medium),
+                             textFieldAlignment: .left,
+                             placeHolder: bool ? "아이디 (이메일)" : "비밀번호",
+                             placeHolderFont: .notoSans(size: 16, weight: .medium),
+                             placeHolderColor: R.Color.Main.textOpac40,
+                             placeHolderLeftPadding: 12,
+                             placeHolderRightPadding: 12,
+                             needTextFieldAddButton: false,
+                             needTextFieldClearButton: bool,
+                             needPreBackGroundColor: true,
+                             needSecureText: !bool,
+                             endEditingWithView: nil)
+    }
+    /// 제목 텍스트 필드
+    lazy var emailTextField = CustomTextField(model: textFieldModel(true)).then {
+        $0.getTextField().autocorrectionType = .no
+    }
+    
+    lazy var passwordTextField = CustomTextField(model: textFieldModel(false)).then {
+        $0.getTextField().autocorrectionType = .no
+    }
+    
+    lazy var signUpButton = UIButton().then {
+        $0.setTitle("회원가입", for: .normal)
+        $0.setBackgroundColor(R.Color.purple, for: .normal)
+        $0.titleLabel?.font = .notoSans(size: 22, weight: .bold)
+        $0.cornerRadius = 10
+        $0.borderWidth = 1
+        $0.borderColor = UIColor(226, 226, 230, 0.7)
     }
     
     // MARK: - Outlets
@@ -48,11 +77,24 @@ class SignUpView: UIBasePreviewType {
     func setupLayout() {
         backgroundColor = .white
         
-        // $0.top.equalTo(naviBar.snp.bottom)
-        
-        addSubview(label)
-        label.snp.makeConstraints {
-            $0.center.equalToSuperview()
+        addSubviews([emailTextField, passwordTextField, signUpButton])
+        emailTextField.snp.makeConstraints {
+            $0.centerY.equalToSuperview().offset(-130)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(300)
+            $0.height.equalTo(45)
+        }
+        passwordTextField.snp.makeConstraints {
+            $0.top.equalTo(emailTextField.snp.bottom).offset(15)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(300)
+            $0.height.equalTo(45)
+        }
+        signUpButton.snp.makeConstraints {
+            $0.top.equalTo(passwordTextField.snp.bottom).offset(100)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(180)
+            $0.height.equalTo(50)
         }
     }
     
@@ -69,7 +111,13 @@ class SignUpView: UIBasePreviewType {
     }
     
     func bindData() {
-        // d
+        signUpButton.rx.tap
+            .map {
+                let email = self.emailTextField.getText
+                let password = self.passwordTextField.getText
+                return .signUp(email, password) }
+            .bind(to: actionRelay)
+            .disposed(by: rx.disposeBag)
     }
 }
 

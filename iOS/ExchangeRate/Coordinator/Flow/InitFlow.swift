@@ -10,6 +10,7 @@ import UIKit
 import Then
 import RxSwift
 import RxCocoa
+import Firebase
 
 /*
  메모리 해제가 정상적으로 되지 않는다..!!
@@ -50,12 +51,10 @@ class InitFlow: Flow {
         case .initialization:
             return self.navigate(to: MainSteps.loginCheck)
         case .loginCheck:
-            return rootSetIntro()
+            return AuthManager.current.isLogined ? moveToHome() : rootSetIntro()
         case .emailSignUp:
             return navigateToEmailSignUp()
-        case .findPassword:
-            return moveToHome()
-        case .home:
+        case .moveToMain:
             return moveToHome()
         case .moveTab(let index):
             rootViewController.selectTabBarWith(index: index)

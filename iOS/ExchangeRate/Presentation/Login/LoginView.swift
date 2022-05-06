@@ -29,7 +29,6 @@ class LoginView: UIBasePreviewType {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         emailSignUp.addBorder([.bottom], color: .darkGray, width: 1)
-        findPassword.addBorder([.bottom], color: .darkGray, width: 1)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -80,19 +79,9 @@ class LoginView: UIBasePreviewType {
         $0.getTextField().autocorrectionType = .no
     }
     
-    
     lazy var container = UIView()
     
-    lazy var findPassword = underLineButton("비밀번호 찾기")
-    
     lazy var emailSignUp = underLineButton("이메일로 가입")
-    
-    lazy var verticalBar = UILabel().then {
-        $0.textColor = .darkGray
-        $0.text = "|"
-        $0.font = .notoSans(size: 9, weight: .regular)
-    }
-    
     
     lazy var loginButton = UIButton().then {
         $0.setTitle("로그인", for: .normal)
@@ -109,44 +98,27 @@ class LoginView: UIBasePreviewType {
     func setupLayout() {
         backgroundColor = .white
         
-        addSubviews([loginLabel, emailTextField, passwordTextField, container, loginButton])
+        addSubviews([loginLabel, emailTextField, passwordTextField, container, emailSignUp, loginButton])
         
         loginLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(50)
             $0.bottom.equalTo(emailTextField.snp.top).offset(-50)
         }
-        
         emailTextField.snp.makeConstraints {
             $0.centerY.equalToSuperview().offset(-130)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(300)
             $0.height.equalTo(45)
         }
-        
         passwordTextField.snp.makeConstraints {
             $0.top.equalTo(emailTextField.snp.bottom).offset(15)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(300)
             $0.height.equalTo(45)
         }
-        
-        container.addSubviews([emailSignUp, verticalBar, findPassword])
-        container.snp.makeConstraints {
+        emailSignUp.snp.makeConstraints {
             $0.top.equalTo(passwordTextField.snp.bottom).offset(25)
             $0.centerX.equalToSuperview()
-            $0.width.equalTo(300)
-            $0.height.equalTo(35)
-        }
-        findPassword.snp.makeConstraints {
-            $0.trailing.equalTo(container.snp.centerX).offset(-15)
-            $0.centerY.equalToSuperview()
-        }
-        verticalBar.snp.makeConstraints {
-            $0.center.equalToSuperview()
-        }
-        emailSignUp.snp.makeConstraints {
-            $0.leading.equalTo(container.snp.centerX).offset(15)
-            $0.centerY.equalToSuperview()
         }
         
         loginButton.snp.makeConstraints {
@@ -177,7 +149,7 @@ class LoginView: UIBasePreviewType {
                 let email = self.emailTextField.getText
                 let password = self.passwordTextField.getText
                 
-                return .goHome("test12@naver.com", password)
+                return .goHome(email, password)
             }
             .bind(to: actionRelay)
             .disposed(by: rx.disposeBag)
@@ -186,12 +158,6 @@ class LoginView: UIBasePreviewType {
             .map { .emailSignUp }
             .bind(to: actionRelay)
             .disposed(by: rx.disposeBag)
-        
-        findPassword.rx.tap
-            .map { .findPassword }
-            .bind(to: actionRelay)
-            .disposed(by: rx.disposeBag)
-        
     }
     
     func underLineButton(_ title: String) -> UIButton {

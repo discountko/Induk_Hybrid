@@ -21,6 +21,7 @@ class SignUpViewController: UIBaseViewController, ViewModelProtocol {
     
     // MARK: - Properties
     private let actionRelay = PublishRelay<SignUpActionType>()
+    var tapGesture: UITapGestureRecognizer?
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -43,6 +44,24 @@ class SignUpViewController: UIBaseViewController, ViewModelProtocol {
         
         subView
             .setupDI(relay: actionRelay)
+        
+        /// 키보드 나오면, 바깥부분 클릭시 키보드 내리는 옵저버 추가
+        NotificationCenter.default.rx.notification(UIResponder.keyboardWillShowNotification)
+            .subscribe(onNext: { [weak self] noti in
+                guard let `self` = self else { return }
+                self.tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+                self.tapGesture?.cancelsTouchesInView = false
+                self.subView.addGestureRecognizer(self.tapGesture!)
+            }).disposed(by: rx.disposeBag)
+        
+        /// 키보드 들어가면, 옵저버 삭제
+        NotificationCenter.default.rx.notification(UIResponder.keyboardWillHideNotification)
+            .subscribe(onNext: { [weak self] noti in
+                guard let `self` = self else { return }
+                if self.tapGesture != nil {
+                    self.subView.removeGestureRecognizer(self.tapGesture!)
+                }
+            }).disposed(by: rx.disposeBag)
     }
     
     // MARK: - View
@@ -56,5 +75,7 @@ class SignUpViewController: UIBaseViewController, ViewModelProtocol {
     }
     
     // MARK: - Methods
-    
+    @objc func dismissKeyboard() {
+        self.view.endEditing(true)
+    }
 }

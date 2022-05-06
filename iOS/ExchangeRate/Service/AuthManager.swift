@@ -22,13 +22,26 @@ class AuthManager {
     
     var user: User? = Auth.auth().currentUser
     
+    var isLogined: Bool = Auth.auth().currentUser != nil ? true : false
+    
     let handle = Auth.auth().then {
         $0.useAppLanguage()
         $0.languageCode = "kr"
     }
     
+    private func autoLogin() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(checkAutoLogin), name: .AuthState, object: nil)
+    }
+    
+    
+    @objc
+    func checkAutoLogin() {
+        
+    }
+    
     /// 이메일 회원가입
-    func signUp(withEmail email: String, password pwd: String) -> (AuthDataResult?, Error?) {
+    func signUp(withEmail email: String, password pwd: String, result: @escaping((AuthDataResult?, Error?) -> Void)) -> (AuthDataResult?, Error?) {
         var result: (AuthDataResult?, Error?) = (nil, nil)
         
         //handle.createUser(withEmail: <#T##String#>, password: <#T##String#>)
@@ -51,6 +64,13 @@ class AuthManager {
         
     }
     
+    func updatePassword(to password: String, result: @escaping((Error?) -> Void)) {
+        var result: Error? = nil
+        
+        user?.updatePassword(to: password, completion: { error in
+            result = error
+        })
+    }
     
     // 인증 상태 수신 대기
     func authState() {
@@ -72,7 +92,9 @@ class AuthManager {
             self.handle.removeStateDidChangeListener($0)
         }).disposed(by: disposeBag)
     }
-    
-    
-    
+}
+
+
+extension Notification.Name {
+    static let AuthState = NSNotification.Name("authState")
 }

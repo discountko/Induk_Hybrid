@@ -16,7 +16,6 @@ import Firebase
 enum LoginActionType {
     case goHome(String?, String?)
     case emailSignUp
-    case findPassword
 }
 
 class LoginViewModel: ViewModelType, Stepper {
@@ -27,8 +26,6 @@ class LoginViewModel: ViewModelType, Stepper {
     var steps = PublishRelay<Step>()
     
     private var disposeBag = DisposeBag()
-    
-    //private loginAction = Action <(String?, String?), > (workFactory: <#T##(String?) -> ObservableConvertibleType#>
     
     // TODO: - Deinit 개발 완료 한 뒤 메모리가 정상적으로 해제 되면 삭제!
     deinit {
@@ -54,8 +51,6 @@ class LoginViewModel: ViewModelType, Stepper {
             //self.steps.accept(MainSteps.home)
         case .emailSignUp:
             self.steps.accept(MainSteps.emailSignUp)
-        case .findPassword:
-            self.steps.accept(MainSteps.findPassword)
         }
         return .empty()
     }
@@ -76,17 +71,6 @@ class LoginViewModel: ViewModelType, Stepper {
     }
     
     func signIn(_ email: String?, password: String?) {
-        /// 1. 이메일 비밀번호 빈값여부 체크해서 로그인 버튼 활성/비활성
-        /// 2. 이메일 정규식
-        ///
-        /// 3. 이메일 만들기(회원가입)
-        /// 4. 비밀번호 찾기
-        /// 5. 이메일 문자인증
-        ///
-        /// 파베 아이디비번 : test12@naver.com // 123456
-        /// 의문점.. 비번/패스워드 싱글톤 서비스 만들어야겠다..
-        /// KeyChain 사용해서 웹에 헤더 전송 해야 할 듯하다...
-        ///
         /// 우선순위
         /// 자바스크립트로 로그인 정보전달
         /// 로그아웃시 웹도 로그아웃처리
@@ -98,12 +82,8 @@ class LoginViewModel: ViewModelType, Stepper {
             return
         }
         
-        
-        //AuthManager.current.handle
-        
         AuthManager.current.handle.signIn(withEmail: id, password: pwd) { [weak self] authResult, error in
             guard let `self` = self else { return }
-            // AuthDataResult? Error?
             
             if let result = authResult {
                 let info = (result.additionalUserInfo, result.user, result.credential, result.debugDescription)
@@ -123,29 +103,7 @@ class LoginViewModel: ViewModelType, Stepper {
                 Log.e("ErrorCode \(errorInfo.code), Domain \(errorInfo.domain)")
                 Log.e("Test : \(errorInfo.userInfo["FIRAuthErrorUserInfoNameKey"])")
             }
-        }
-        
-        //AuthManager.current.signIn(withEmail: <#T##String#>, password: <#T##String#>)
-        
-        func verifyEmail() { // ActionCodeSettings
-            AuthManager.current.handle.currentUser?.sendEmailVerification(completion: { error in
-                print(error)
-            })
-
-        }
-        
-        func changePassword() {
-            AuthManager.current.handle.currentUser?.updatePassword(to: "새로운비밀번호", completion: { error in
-                
-                if let e = error {
-                    
-                    Log.e("Error : \(e)")
-                }
-                
-                
-            })
-        }
-        
+        }        
     }
     
 }
