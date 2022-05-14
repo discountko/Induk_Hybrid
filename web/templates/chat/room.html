@@ -1,0 +1,188 @@
+<!-- chat/templates/chat/room.html -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Chat Room</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+        <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
+        
+    </head>
+    <body style="font-size: 10px;">
+    <div class="chat_window">
+        <div class="top_menu">
+            <div class="buttons">
+                <div class="button close"></div>
+                <div class="button minimize"></div>
+                <div class="button maximize"></div>
+            </div>
+            <div class="title">Chat</div>
+        </div>
+        <ul class="messages">
+        </ul>
+        <div class="bottom_wrapper clearfix">
+            <div class="message_input_wrapper">
+                <input class="message_input" placeholder="Type your message here..." />
+            </div>
+            <div class="send_message">
+                <div class="icon"></div>
+                <div class="text">Send</div>
+            </div>
+        </div>
+    </div>
+    <div class="message_template">
+        <li class="message">
+            <div class="title">
+                <span class="user">user</span>
+                <span class="time"> 40분전</span>
+            </div>
+            <div class="avatar"></div>
+            <div class="text_wrapper">
+                <div class="text"></div>
+            </div>
+        </li>
+    </div>
+    
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/moment.min.js' %}"></script>
+
+    
+    {{ room_name|json_script:"room-name" }}
+    {{ user|json_script:"user" }}
+    {{ comments|json_script:"comments" }}
+    <script>
+        moment.locale('ko'); 
+
+        const roomName = JSON.parse(document.getElementById('room-name').textContent);
+        const user = JSON.parse(document.getElementById('user').textContent);
+        const comments = JSON.parse(document.getElementById('comments').textContent);
+
+        const chatSocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/chat/'
+            + roomName
+            + '/'
+        );
+
+        var getMessageText, message_side, sendMessage;
+        message_side = 'right';
+        getMessageText = function () {
+            var $message_input;
+            $message_input = $('.message_input');
+            return $message_input.val();
+        };
+        sendMessage = function (data) {
+            var $messages, message;
+
+            var isMyComment = "N";
+            if(user !=null && data.author == user){
+                isMyComment = "Y";
+            }
+
+            if (data.comment.trim() === '') {
+                return;
+            }
+            //$('.message_input').val('');
+            $messages = $('.messages');
+            message_side = isMyComment === 'Y' ? 'right' : 'left';
+
+            //댓글 출력
+            var $message;
+            $message = $($('.message_template').clone().html());
+            $message.addClass(message_side).find('.text').html(data.comment);
+            $message.find('.user').html(data.author);
+            $message.find('.time').html(data.create_date);
+
+            $('.messages').append($message);
+            setTimeout(function () {
+                $message.addClass('appeared');
+            }, 0);
+
+            $('.messages').animate({ scrollTop: $messages.prop('scrollHeight') }, 300);
+        };
+
+
+
+        //하루전 댓글 출력
+        for(var i=0; i<comments.length;i++){
+            sendMessage(comments[i]);
+        }
+
+        $('.messages').animate({ scrollTop: $('.messages').prop('scrollHeight') }, 0);
+
+        //recive
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            sendMessage(data);
+            /*
+            let chat_aria = document.getElementById('chat-aria');
+            let new_button = document.createElement('input');
+            new_button.setAttribute('type', 'button');
+            new_button.setAttribute('value', data.message);
+
+            chat_aria.appendChild(new_button);
+            */
+            //document.querySelector('#chat-log').value += (data.message + '\n');
+        };
+
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+
+        document.querySelector('.message_input').focus();
+        document.querySelector('.message_input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('.send_message').click();
+            }
+        };
+        //send
+        document.querySelector('.send_message').onclick = function(e) {
+            if(user ==null || user ==''){
+                alert('로그인 후 이용가능합니다.');
+                return;
+            }
+
+            const messageInputDom = document.querySelector('.message_input');
+            const message = messageInputDom.value;
+            const author = user;
+            const create_date = moment().format('YYYY/MM/DD H:mm:ss');
+            const time = moment().format('a h시 m분');
+            
+
+            chatSocket.send(JSON.stringify({
+                "author": author,
+                "comment": message,
+                "create_date": time,
+            }));
+            messageInputDom.value = '';
+            
+            //댓글 DB에 저장
+            $.ajax({
+                type:"POST",
+                url:"/chat/post",
+                data:{
+                    'comment': message,
+                    "author": author,
+                    "create_date": create_date,
+                },
+                success:function(res){
+                    if(res.result == "S"){
+                        console.log('DB저장완료');
+                    }else{
+                        alert(res.message);
+                        return;
+                    }
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown){
+                    alert('통신 실패');
+                }
+            });
+            
+        };
+    </script>
+</body>
+</html>

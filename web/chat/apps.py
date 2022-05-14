@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class BoardappConfig(AppConfig):
+class ChatConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'boardApp'
+    name = 'chat'
