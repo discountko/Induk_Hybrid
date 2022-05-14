@@ -95,7 +95,7 @@ body {
   color: #c48843;
 }
 .messages .message.right .avatar {
-  background-color: #fdbf68;
+  background-color: #33c7c7;
   float: right;
 }
 .messages .message.right .text_wrapper {
@@ -125,7 +125,7 @@ body {
     position: relative;
     height: 7vw;
     width: 60vw;
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: 800;
     display: inline-block;
     

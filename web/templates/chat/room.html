@@ -101,32 +101,28 @@
             setTimeout(function () {
                 $message.addClass('appeared');
             }, 0);
-
-            $('.messages').animate({ scrollTop: $messages.prop('scrollHeight') }, 300);
         };
 
 
 
-        //하루전 댓글 출력
+        //하루 치 댓글 출력
         for(var i=0; i<comments.length;i++){
-            sendMessage(comments[i]);
+            var date = moment(comments[i].create_date,"YYYY/MM/DD HH:mm:ss");
+            var time = date.format('a h시 m분');
+            data={
+                'author': comments[i].author,
+                'create_date': time,
+                'comment': comments[i].comment,
+            }
+            sendMessage(data);
         }
-
         $('.messages').animate({ scrollTop: $('.messages').prop('scrollHeight') }, 0);
 
         //recive
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
             sendMessage(data);
-            /*
-            let chat_aria = document.getElementById('chat-aria');
-            let new_button = document.createElement('input');
-            new_button.setAttribute('type', 'button');
-            new_button.setAttribute('value', data.message);
-
-            chat_aria.appendChild(new_button);
-            */
-            //document.querySelector('#chat-log').value += (data.message + '\n');
+            $('.messages').animate({ scrollTop: $('.messages').prop('scrollHeight') }, 300);
         };
 
         chatSocket.onclose = function(e) {
