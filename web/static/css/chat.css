@@ -69,7 +69,7 @@ body {
   padding: 20px 10px 0 10px;
   margin: 0;
   /*height: 347px;*/
-  height: calc(100% - 32vw);
+  height: calc(100% - 18vw);
   overflow: scroll;
 }
 .messages .message {

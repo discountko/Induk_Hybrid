@@ -71,12 +71,14 @@ def getAllListByToday():
     diff = now - past
     #print('now= {}'.format(now))
     #print('past= {}'.format(past))
-    if(diff.days < 1):
-      #print('diff.days= {}'.format(diff.days))
-      #print('diff.seconds= {}'.format(diff.seconds))
+    #print('diff= {}'.format(diff))
+    #print('diff.days= {}'.format(diff.days))
+    #print('type(diff.days)= {}'.format(type(diff.days)))
+    if(diff.days <= 1):
+      #print('add= {}'.format(past))
       todayComments.append(comment)
 
-  return comments
+  return todayComments
 
 
 # 댓글 autho increment함수

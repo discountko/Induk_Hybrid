@@ -12,7 +12,7 @@ def index(request):
     return render(request, 'chat/index.html', {})
 
 def room(request):
-    login(request) #로그인 임시 사용 수정필요!
+    #login(request) #로그인 임시 사용 수정필요!
     
     return render(request, 'chat/room.html', {
         'room_name': 'chat',
@@ -24,9 +24,9 @@ def test(request):
     return render(request, 'chat/test.html', {})
 
 def login(request):
-    
-    #loginId = request.POST['loginId'] 수정필요!
-    loginId = 'test@test.com' # 수정필요!
+    loginId = request.GET.get("loginId",None)
+    print('loginId = {}'.format(loginId))
+
     user = auth.get_user_by_email(loginId).email
 
     print('session add = {}'.format(user))
