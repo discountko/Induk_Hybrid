@@ -18,8 +18,9 @@ class NewsView: UIBasePreviewType {
     typealias Model = Void
     
     // MARK: - init
-    override init(naviType: BaseNavigationShowType = .none) {
+    override init(naviType: BaseNavigationShowType = .centerTitle) {
         super.init(naviType: naviType)
+        naviBar.title = "뉴스"
         setupLayout()
     }
     
@@ -40,7 +41,9 @@ class NewsView: UIBasePreviewType {
         addSubviews([fullView])
         
         fullView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.equalTo(naviBar.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
+            //$0.edges.equalToSuperview()
         }
     }
     

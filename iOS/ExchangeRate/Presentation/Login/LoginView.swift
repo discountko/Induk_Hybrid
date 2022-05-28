@@ -149,6 +149,7 @@ class LoginView: UIBasePreviewType {
                 let email = self.emailTextField.getText
                 let password = self.passwordTextField.getText
                 
+                //return .goHome("test12@naver.com", "123456") // 주석해제후 바로 로그인 버튼 누르면 됨
                 return .goHome(email, password)
             }
             .bind(to: actionRelay)

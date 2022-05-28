@@ -87,6 +87,7 @@ class LoginViewModel: ViewModelType, Stepper {
             
             if let result = authResult {
                 let info = (result.additionalUserInfo, result.user, result.credential, result.debugDescription)
+                AuthManager.USER_NAME = id
                 Log.d("Result : \(info)")
                 self.steps.accept(MainSteps.moveToMain)
             } else {

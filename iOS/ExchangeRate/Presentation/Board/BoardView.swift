@@ -23,7 +23,7 @@ class BoardView: UIBasePreviewType, UIScrollViewDelegate, WKUIDelegate, WKNaviga
     // MARK: - init
     override init(naviType: BaseNavigationShowType = .centerTitleRightLogout) {
         super.init(naviType: naviType)
-        naviBar.title = "게시판"
+        naviBar.title = "채팅"
         setupLayout()
     }
     
@@ -38,8 +38,7 @@ class BoardView: UIBasePreviewType, UIScrollViewDelegate, WKUIDelegate, WKNaviga
         $0.navigationDelegate = self
         $0.uiDelegate = self
         $0.allowsBackForwardNavigationGestures = true
-        
-        let myUrl = URL(string: "https://www.naver.com")
+        let myUrl = URL(string: "http://0.0.0.0:8000/chat/login?loginId=\(AuthManager.USER_NAME)")
         $0.load(URLRequest(url: myUrl!))
     }
     

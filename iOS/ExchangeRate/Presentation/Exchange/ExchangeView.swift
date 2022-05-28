@@ -27,9 +27,9 @@ class ExchangeView: UIBasePreviewType, UIScrollViewDelegate, WKUIDelegate, WKNav
     let actionRelay = PublishRelay<ExchangeActionType>()
     
     // MARK: - init
-    override init(naviType: BaseNavigationShowType = .none) {
+    override init(naviType: BaseNavigationShowType = .centerTitle) {
         super.init(naviType: naviType)
-        naviBar.title = "테스트"
+        naviBar.title = "환율전환"
         setupLayout()
     }
     
@@ -60,7 +60,8 @@ class ExchangeView: UIBasePreviewType, UIScrollViewDelegate, WKUIDelegate, WKNav
         addSubviews([webView, indicator])
         
         webView.snp.makeConstraints {
-            $0.top.equalTo(UIDevice.topSafeArea)
+            //$0.top.equalTo(UIDevice.topSafeArea)
+            $0.top.equalTo(naviBar.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
 
