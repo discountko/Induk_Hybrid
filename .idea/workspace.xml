@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="237a179b-2572-4262-b45c-0522d4f43332" name="변경" comment="" />
+    <list default="true" id="237a179b-2572-4262-b45c-0522d4f43332" name="변경" comment="Merge branch 'main' of https://github.com/discountko/Induk_Hybrid">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,6 +21,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="yhb &lt;dkuej98@naver.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -34,11 +41,15 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="settings.editor.selected.configurable" value="MTConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\thdwp\Documents\python\teamProject\web\static" />
+      <recent name="C:\Users\thdwp\Documents\python\teamProject\web\templates" />
+      <recent name="C:\Users\thdwp\Documents\python\teamProject\web" />
+      <recent name="C:\Users\thdwp\Documents\python\teamProject\web\changeApp" />
       <recent name="C:\Users\thdwp\Documents\python\teamProject\templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -79,6 +90,14 @@
       <option name="presentableId" value="Default" />
       <updated>1650368191402</updated>
     </task>
+    <task id="LOCAL-00001" summary="Merge branch 'main' of https://github.com/discountko/Induk_Hybrid">
+      <created>1654419307417</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1654419307417</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -91,5 +110,20 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Merge branch 'main' of https://github.com/discountko/Induk_Hybrid" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'main' of https://github.com/discountko/Induk_Hybrid" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>8</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
