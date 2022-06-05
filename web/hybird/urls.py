@@ -16,8 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+import changeApp.views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('Exchanges/', include('changeApp.urls')),
+<<<<<<< HEAD:web/hybird/urls.py
     path('chat/', include('chat.urls')),
+=======
+    path('result/', changeApp.views.result, name='result'),
+    path('about/', changeApp.views.about, name='about'),
+>>>>>>> c055a5c (message):hybird/urls.py
 ]
