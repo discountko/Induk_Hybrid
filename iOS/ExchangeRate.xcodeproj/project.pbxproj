@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		053DF31B281C012700588A7C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 053DF31A281C012700588A7C /* GoogleService-Info.plist */; };
+		AF751BA8283C616C009FECA1 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF751BA7283C616C009FECA1 /* TableViewCell.swift */; };
+		AFDD62892848CEC200049F68 /* WebkitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDD62882848CEC200049F68 /* WebkitController.swift */; };
 		C308DFAB280CF31D0051162B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C308DFA8280CF31D0051162B /* LoginViewController.swift */; };
 		C308DFAC280CF31D0051162B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C308DFA9280CF31D0051162B /* LoginView.swift */; };
 		C308DFAD280CF31D0051162B /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C308DFAA280CF31D0051162B /* LoginViewModel.swift */; };
@@ -113,6 +115,8 @@
 /* Begin PBXFileReference section */
 		053DF31A281C012700588A7C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		750EA7D41E069ED84248471B /* Pods_ExchangeRate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ExchangeRate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF751BA7283C616C009FECA1 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		AFDD62882848CEC200049F68 /* WebkitController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebkitController.swift; sourceTree = "<group>"; };
 		B9BB063E6498ADE313E18D13 /* Pods-ExchangeRate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ExchangeRate.debug.xcconfig"; path = "Target Support Files/Pods-ExchangeRate/Pods-ExchangeRate.debug.xcconfig"; sourceTree = "<group>"; };
 		C308DFA8280CF31D0051162B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C308DFA9280CF31D0051162B /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -498,6 +502,8 @@
 			children = (
 				C3B50DC12734B3AF00162B0B /* NewsView.swift */,
 				C3B50DC22734B3AF00162B0B /* NewsViewController.swift */,
+				AFDD62882848CEC200049F68 /* WebkitController.swift */,
+				AF751BA7283C616C009FECA1 /* TableViewCell.swift */,
 				C3B50DC32734B3AF00162B0B /* NewsViewModel.swift */,
 			);
 			path = News;
@@ -807,6 +813,7 @@
 				C3B50E1A2734B3B000162B0B /* ExchangeViewController.swift in Sources */,
 				C35C361B276B2D4000CDA30D /* TabPagerHeaderCellModel.swift in Sources */,
 				C3CC59D02807E08A002D55EC /* NetworkService.swift in Sources */,
+				AF751BA8283C616C009FECA1 /* TableViewCell.swift in Sources */,
 				C3B50E032734B3B000162B0B /* ViewModel.swift in Sources */,
 				C3643AC2273558FF0058F542 /* SnapKit+.swift in Sources */,
 				C3B50E092734B3B000162B0B /* Model.swift in Sources */,
@@ -817,6 +824,7 @@
 				C3B50E322734B3B000162B0B /* SceneDelegate.swift in Sources */,
 				C3B50DE62734B3AF00162B0B /* UIStackView+.swift in Sources */,
 				C3E6B103281FBC7700A7953E /* ToastCenter.swift in Sources */,
+				AFDD62892848CEC200049F68 /* WebkitController.swift in Sources */,
 				C3B50DEE2734B3AF00162B0B /* UIScrollView+.swift in Sources */,
 				C3B50DF12734B3AF00162B0B /* UIImage+.swift in Sources */,
 				C3B50DE02734B3AF00162B0B /* Array+.swift in Sources */,
@@ -972,6 +980,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.faihinker.ExchangeRate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ExchangeRate/Supporting Files/Bridging_Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -993,6 +1002,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.faihinker.ExchangeRate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ExchangeRate/Supporting Files/Bridging_Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
