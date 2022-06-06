@@ -44,8 +44,7 @@ class ExchangeView: UIBasePreviewType, UIScrollViewDelegate, WKUIDelegate, WKNav
         $0.navigationDelegate = self
         $0.uiDelegate = self
         $0.allowsBackForwardNavigationGestures = true
-        
-        let myUrl = URL(string: "https://www.daum.net/")
+        let myUrl = URL(string: "http://0.0.0.0:8000/Exchanges/main/")
         $0.load(URLRequest(url: myUrl!))
     }
     
