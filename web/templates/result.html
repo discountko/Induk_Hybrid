@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'base.css'%}">
+
+</head>
+<body>
+<div class="inner_result">
+    <div class="body-title">  <b>환율 결과 페이지.</b> </div>
+
+    <div class="body-top">
+        <h4> 입력한 KOR 원</h4>
+        <div class = "card">
+            <div class = "container">
+                {{korea}}
+            </div>
+        </div>
+
+    <h4> KOR -> {{name}} 환전결과</h4>
+
+<div class = "card">
+    <div class = "container">
+        {{country}}
+    </div>
+</div>
+        <br>
+        <a href="/Exchanges/main/"><button type="button" class="btn btn-primary">Home</button></a>
+    </div>
+</div>
+
+</body>
+</html>
