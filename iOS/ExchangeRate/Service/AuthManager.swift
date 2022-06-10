@@ -18,6 +18,8 @@ class AuthManager {
     
     var disposeBag = DisposeBag()
     
+    static var USER_NAME = ""
+    
     var state = PublishRelay<AuthStateDidChangeListenerHandle>()
     
     var user: User? = Auth.auth().currentUser

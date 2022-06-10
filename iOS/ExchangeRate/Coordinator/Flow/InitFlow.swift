@@ -29,7 +29,7 @@ class InitFlow: Flow {
     let newsFlow = NewsFlow()
     
     var tabBarTitle: [String] {
-        return ["환율전환", "게시판", "뉴스"]
+        return ["환율전환", "채팅", "뉴스"]
     }
     
     var sfSymbols = ["person.crop.circle", "person.crop.circle.fill",
@@ -51,7 +51,8 @@ class InitFlow: Flow {
         case .initialization:
             return self.navigate(to: MainSteps.loginCheck)
         case .loginCheck:
-            return AuthManager.current.isLogined ? moveToHome() : rootSetIntro()
+            //return AuthManager.current.isLogined ? moveToHome() : rootSetIntro()
+            return rootSetIntro()
         case .emailSignUp:
             return navigateToEmailSignUp()
         case .moveToMain:

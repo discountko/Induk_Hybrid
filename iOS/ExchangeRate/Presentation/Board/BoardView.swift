@@ -23,7 +23,7 @@ class BoardView: UIBasePreviewType, UIScrollViewDelegate, WKUIDelegate, WKNaviga
     // MARK: - init
     override init(naviType: BaseNavigationShowType = .centerTitleRightLogout) {
         super.init(naviType: naviType)
-        naviBar.title = "게시판"
+        naviBar.title = "채팅"
         setupLayout()
     }
     
@@ -38,8 +38,7 @@ class BoardView: UIBasePreviewType, UIScrollViewDelegate, WKUIDelegate, WKNaviga
         $0.navigationDelegate = self
         $0.uiDelegate = self
         $0.allowsBackForwardNavigationGestures = true
-        
-        let myUrl = URL(string: "https://www.naver.com")
+        let myUrl = URL(string: "http://0.0.0.0:8000/chat")
         $0.load(URLRequest(url: myUrl!))
     }
     
@@ -70,17 +69,17 @@ class BoardView: UIBasePreviewType, UIScrollViewDelegate, WKUIDelegate, WKNaviga
         return self
     }
     
-    func setupDI(observable: Observable<String>) {
-        observable.subscribe(onNext: { [weak self] urlString in
-            guard let `self` = self else { return }
-            if urlString.isEmpty {
-                return
-            }
-            if let url = URL(string: urlString) {
-                self.webView.load(URLRequest(url: url))
-            }
-        }).disposed(by: rx.disposeBag)
-    }
+//    func setupDI(observable: Observable<String>) {
+//        observable.subscribe(onNext: { [weak self] urlString in
+//            guard let `self` = self else { return }
+//            if urlString.isEmpty {
+//                return
+//            }
+//            if let url = URL(string: urlString) {
+//                self.webView.load(URLRequest(url: url))
+//            }
+//        }).disposed(by: rx.disposeBag)
+//    }
     
     func bindData() {
         
